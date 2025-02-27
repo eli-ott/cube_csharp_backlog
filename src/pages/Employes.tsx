@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import trash from '../assets/icons/delete.svg';
 import refreshIcon from '../assets/icons/refresh.svg';
 import { useConfirm } from '../components/common/ConfirmProvider';
+import EmployeeDialog from '../components/ui/EmployeeDialog';
+import RoleDialog from '../components/ui/RoleDialog';
 
 const Employes = () => {
 	const navigate = useNavigate();
@@ -16,6 +18,8 @@ const Employes = () => {
 	const [employes, setEmployes] = useState<Employee[]>([]);
 	const [page, setPage] = useState<number>(1);
 	const [maxPage, setMaxPage] = useState<number>(1);
+	const [employeeDialogOpen, setEmployeeDialogOpen] = useState<boolean>(false);
+	const [roleDialogOpen, setRoleDialogOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		const fetchEmployes = async () => {
@@ -30,11 +34,16 @@ const Employes = () => {
 					method: 'GET',
 					headers,
 				});
+				if (employesRes.status === 401) {
+					alert("Vous n'êtes pas connecté");
+					return;
+				}
 				data = await employesRes.json();
 			} catch (e) {
 				console.error(e);
 			}
 
+			console.log(data);
 			setPage(data.currentPage);
 			setMaxPage(data.totalPages);
 			setEmployes(data.items);
@@ -94,18 +103,38 @@ const Employes = () => {
 			console.error(e);
 		}
 	};
+
 	return (
 		<div className="overflow-x-auto p-4 flex flex-col gap-4">
+			<EmployeeDialog
+				isOpen={employeeDialogOpen}
+				onClose={() => setEmployeeDialogOpen(false)}
+				onEmployeeCreated={() => setRefresh(refresh + 1)}></EmployeeDialog>
+
+			<RoleDialog
+				isOpen={roleDialogOpen}
+				onClose={() => {
+					setRoleDialogOpen(false);
+				}}></RoleDialog>
+
 			<div className="actions flex flex-row gap-4">
 				<button
-					className="h-10 w-10 flex justify-center items-center bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all"
+					className="h-10 w-10 flex justify-center items-center bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
 					onClick={() => setRefresh(refresh + 1)}>
 					<img src={refreshIcon} alt="refresh icon" />
 				</button>
-				<button className="h-10 w-52 bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all">
+				<button
+					className="h-10 w-52 bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
+					onClick={() => setEmployeeDialogOpen(true)}>
 					Ajouter un employé
 				</button>
+				<button
+					className="h-10 w-52 bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
+					onClick={() => setRoleDialogOpen(true)}>
+					Ajouter un rôle
+				</button>
 			</div>
+
 			<table className="min-w-full border-collapse rounded-lg overflow-hidden shadow-lg">
 				<thead>
 					<tr className="bg-gray-700 text-white">
@@ -142,9 +171,15 @@ const Employes = () => {
 									<td className="text-center px-6 py-3 border-b">{employee.email}</td>
 									<td className="text-center px-6 py-3 border-b">{employee.phone}</td>
 									<td className="text-center px-6 py-3 border-b">{employee.role.name}</td>
-									<td className="text-center px-6 py-3 border-b">{employee.creationTime}</td>
-									<td className="text-center px-6 py-3 border-b">{employee.updateTime}</td>
-									<td className="text-center px-6 py-3 border-b" onClick={(event) => deleteEmploye(event, employee.employeeId)}>
+									<td className="text-center px-6 py-3 border-b">
+										{new Date(employee.creationTime).toLocaleDateString('fr-FR')}&nbsp;
+										{new Date(employee.creationTime).toLocaleTimeString('fr-FR')}
+									</td>
+									<td className="text-center px-6 py-3 border-b">
+										{new Date(employee.updateTime).toLocaleDateString('fr-FR')}&nbsp;
+										{new Date(employee.updateTime).toLocaleTimeString('fr-FR')}
+									</td>
+									<td className="flex justify-center items-center px-6 py-3 border-b" onClick={(event) => deleteEmploye(event, employee.employeeId)}>
 										<img src={trash} alt="Delete" className="cursor-pointer w-6 h-6 hover:scale-110 transition-transform" />
 									</td>
 								</tr>
@@ -156,19 +191,23 @@ const Employes = () => {
 					<tr>
 						<td colSpan={9} className="px-6 py-4 border-t bg-gray-100">
 							<div className="flex justify-center gap-4">
-								<button
-									onClick={() => changePage(-1)}
-									className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
-									Prev
-								</button>
+								{page !== 1 ? (
+									<button
+										onClick={() => changePage(-1)}
+										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
+										Prev
+									</button>
+								) : null}
 								{page !== 1 ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{1}</span> : null}
 								<span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{page}</span>
 								{page !== maxPage ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{maxPage}</span> : null}
-								<button
-									onClick={() => changePage(1)}
-									className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
-									Next
-								</button>
+								{page !== maxPage ? (
+									<button
+										onClick={() => changePage(1)}
+										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
+										Next
+									</button>
+								) : null}
 							</div>
 						</td>
 					</tr>

@@ -19,3 +19,14 @@ export interface Role {
 	updateTime: string;
 	creationTime: string;
 }
+
+export interface RoleCreation {
+	roleId: number;
+	name: string;
+}
+
+export interface EmployeeDialogProps {
+	isOpen: boolean;
+	onClose: () => void;
+	onEmployeeCreated: () => void;
+}
