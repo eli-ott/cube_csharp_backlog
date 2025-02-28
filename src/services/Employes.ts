@@ -38,6 +38,22 @@ export const GetEmployes = async (page: number): Promise<ApiReturn | null> => {
 	}
 };
 
+export const GetEmployeById = async (id: number): Promise<Employee | null> => {
+	try {
+		const employesRes = await fetch(apiUrl + `/employees/${id}`, {
+			method: 'GET',
+			headers,
+		});
+		if (!employesRes.ok) throw new Error('Une erreur est survenu');
+
+		const data = await employesRes.json();
+		return data;
+	} catch (e) {
+		console.error(e);
+        return null;
+	}
+};
+
 export const SaveEmploye = async (employee: Employee, id: number): Promise<boolean> => {
 	try {
 		const response = await fetch(apiUrl + `/employees/${id}`, {
@@ -51,7 +67,6 @@ export const SaveEmploye = async (employee: Employee, id: number): Promise<boole
 				role: employee?.role,
 			}),
 		});
-		console.log(response);
 
 		if (!response.ok) throw new Error('Failed to update employee');
 

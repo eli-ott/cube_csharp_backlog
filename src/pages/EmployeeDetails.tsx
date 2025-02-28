@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Employee, Role } from '../assets/models/Employes';
-import { SaveEmploye } from '../services/Employes';
+import { GetEmployeById, SaveEmploye } from '../services/Employes';
+import { GetAllRoles } from '../services/Roles';
 
 const EmployeeDetails: React.FC = () => {
 	const apiUrl = process.env.REACT_APP_API_URL;
@@ -26,33 +27,13 @@ const EmployeeDetails: React.FC = () => {
 	}, [id]);
 
 	const fetchEmployee = async () => {
-		try {
-			const response = await fetch(apiUrl + `/employees/${id}`, {
-				method: 'GET',
-				headers,
-			});
-			if (!response.ok) throw new Error('Failed to fetch employee');
-			const data: Employee = await response.json();
-			setEmployee(data);
-		} catch (err) {
-			setError('Could not load employee details');
-		} finally {
-			setLoading(false);
-		}
+		setLoading(true);
+		setEmployee(await GetEmployeById(parseInt(id!)));
+		setLoading(false);
 	};
 
 	const fetchRoles = async () => {
-		try {
-			const response = await fetch(apiUrl + `/roles`, {
-				method: 'GET',
-				headers,
-			});
-			if (!response.ok) throw new Error('Failed to fetch roles');
-			const data = await response.json();
-			setRoles(data.items);
-		} catch (err) {
-			setError('Could not load roles');
-		}
+		setRoles(await GetAllRoles() as Role[]);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -167,19 +148,32 @@ const EmployeeDetails: React.FC = () => {
 				{/* Creation Time */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
 					<p className="text-sm font-medium text-gray-500">Creation Time</p>
-					<p className="text-lg font-semibold">{employee.creationTime}</p>
+					<p className="text-lg font-semibold">
+						{new Date(employee.creationTime).toLocaleDateString('fr-FR')}&nbsp;
+						{new Date(employee.creationTime).toLocaleTimeString('fr-FR')}
+					</p>
 				</div>
 
 				{/* Update Time */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
 					<p className="text-sm font-medium text-gray-500">Update Time</p>
-					<p className="text-lg font-semibold">{employee.updateTime}</p>
+					<p className="text-lg font-semibold">
+						{new Date(employee.updateTime).toLocaleDateString('fr-FR')}&nbsp;
+						{new Date(employee.creationTime).toLocaleTimeString('fr-FR')}
+					</p>
 				</div>
 
 				{/* Deletion Time */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
 					<p className="text-sm font-medium text-gray-500">Deletion Time</p>
-					<p className="text-lg font-semibold">{employee.deletionTime || 'Employé actif'}</p>
+					{employee.deletionTime ? (
+						<p className="text-lg font-semibold">
+							{new Date(employee.deletionTime).toLocaleDateString('fr-FR')}
+							{new Date(employee.creationTime).toLocaleTimeString('fr-FR')}
+						</p>
+					) : (
+						<p className="text-lg font-semibold">Employé actif</p>
+					)}
 				</div>
 			</div>
 
