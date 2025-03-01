@@ -1,5 +1,6 @@
 import { ApiReturn } from '../assets/models/Api';
 import { Employee } from '../assets/models/Employes';
+import { NewEmployeeFormData } from '../assets/models/NewEmployeeForm';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -34,7 +35,7 @@ export const GetEmployes = async (page: number): Promise<ApiReturn | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
-        return null;
+		return null;
 	}
 };
 
@@ -50,7 +51,7 @@ export const GetEmployeById = async (id: number): Promise<Employee | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
-        return null;
+		return null;
 	}
 };
 
@@ -74,4 +75,18 @@ export const SaveEmploye = async (employee: Employee, id: number): Promise<boole
 	} catch (err) {
 		return false;
 	}
+};
+
+export const CreateEmployee = async (formData: NewEmployeeFormData): Promise<Response> => {
+	return await fetch(apiUrl + '/employees', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			...headers,
+		},
+		body: JSON.stringify({
+			...formData,
+			roleId: Number(formData.roleId),
+		}),
+	});
 };

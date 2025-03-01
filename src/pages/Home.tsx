@@ -1,20 +1,13 @@
 import { Link } from 'react-router';
+import HomeLink from '../components/common/HomeLink';
 
 const Home = () => {
 	return (
 		<div className="flex flex-row flex-wrap justify-center items-center w-screen h-screen p-15 gap-15">
-			<Link to="/produits" className="flex flex-row justify-center items-center size-2/5 bg-amber-700 rounded-lg">
-				Produits
-			</Link>
-			<Link to="/choix-commandes" className="flex flex-row justify-center items-center size-2/5 bg-blue-700 rounded-lg">
-				Commandes
-			</Link>
-			<Link to="/employes" className="flex flex-row justify-center items-center size-2/5 bg-red-600 rounded-lg">
-				Employés
-			</Link>
-			<Link to="/fournisseurs" className="flex flex-row justify-center items-center size-2/5 bg-lime-500 rounded-lg">
-				Fournisseurs
-			</Link>
+			<HomeLink to="/produits" color="bg-amber-700" content="Produits"></HomeLink>
+			<HomeLink to="/choix-commandes" color="bg-blue-700" content="Commandes"></HomeLink>
+			<HomeLink to="/employes" color="bg-red-600" content="Employés"></HomeLink>
+			<HomeLink to="/fournisseurs" color="bg-lime-500" content="Fournisseurs"></HomeLink>
 		</div>
 	);
 };
