@@ -60,13 +60,9 @@ export const SaveSupplier = async (supplier: Supplier, id: number): Promise<bool
 		const response = await fetch(apiUrl + `/suppliers/${id}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json', ...headers },
-			body: JSON.stringify({
-				firstName: supplier?.firstName,
-				lastName: supplier?.lastName,
-				email: supplier?.email,
-				phone: supplier?.phone,
-			}),
+			body: JSON.stringify(supplier),
 		});
+        console.log(response, await response.json());
 
 		if (!response.ok) throw new Error('Failed to update supplier');
 
