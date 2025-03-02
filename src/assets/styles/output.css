@@ -593,6 +593,15 @@
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
+  .ml-15 {
+    margin-left: calc(var(--spacing) * 15);
+  }
+  .ml-30 {
+    margin-left: calc(var(--spacing) * 30);
+  }
+  .ml-50 {
+    margin-left: calc(var(--spacing) * 50);
+  }
   .block {
     display: block;
   }
@@ -617,6 +626,10 @@
   .table {
     display: table;
   }
+  .size-1 {
+    width: calc(var(--spacing) * 1);
+    height: calc(var(--spacing) * 1);
+  }
   .size-2 {
     width: calc(var(--spacing) * 2);
     height: calc(var(--spacing) * 2);
@@ -625,11 +638,40 @@
     width: calc(2/5 * 100%);
     height: calc(2/5 * 100%);
   }
+  .size-full {
+    width: 100%;
+    height: 100%;
+  }
+  .size-lvh {
+    width: 100lvh;
+    height: 100lvh;
+  }
+  .h-1 {
+    height: calc(var(--spacing) * 1);
+  }
+  .h-2 {
+    height: calc(var(--spacing) * 2);
+  }
+  .h-4 {
+    height: calc(var(--spacing) * 4);
+  }
   .h-6 {
     height: calc(var(--spacing) * 6);
   }
   .h-10 {
     height: calc(var(--spacing) * 10);
+  }
+  .h-40 {
+    height: calc(var(--spacing) * 40);
+  }
+  .h-50 {
+    height: calc(var(--spacing) * 50);
+  }
+  .h-80 {
+    height: calc(var(--spacing) * 80);
+  }
+  .h-max {
+    height: max-content;
   }
   .h-screen {
     height: 100vh;
@@ -649,6 +691,9 @@
   .w-52 {
     width: calc(var(--spacing) * 52);
   }
+  .w-80 {
+    width: calc(var(--spacing) * 80);
+  }
   .w-96 {
     width: calc(var(--spacing) * 96);
   }
@@ -658,8 +703,20 @@
   .w-200 {
     width: calc(var(--spacing) * 200);
   }
+  .w-300 {
+    width: calc(var(--spacing) * 300);
+  }
+  .w-310 {
+    width: calc(var(--spacing) * 310);
+  }
+  .w-1500 {
+    width: calc(var(--spacing) * 1500);
+  }
   .w-full {
     width: 100%;
+  }
+  .w-max {
+    width: max-content;
   }
   .w-screen {
     width: 100vw;
@@ -669,6 +726,9 @@
   }
   .min-w-full {
     min-width: 100%;
+  }
+  .flex-shrink {
+    flex-shrink: 1;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -694,6 +754,9 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
+  .content-center {
+    align-content: center;
+  }
   .items-center {
     align-items: center;
   }
@@ -715,11 +778,20 @@
   .gap-4 {
     gap: calc(var(--spacing) * 4);
   }
+  .gap-5 {
+    gap: calc(var(--spacing) * 5);
+  }
   .gap-6 {
     gap: calc(var(--spacing) * 6);
   }
   .gap-15 {
     gap: calc(var(--spacing) * 15);
+  }
+  .gap-40 {
+    gap: calc(var(--spacing) * 40);
+  }
+  .gap-50 {
+    gap: calc(var(--spacing) * 50);
   }
   .space-y-4 {
     :where(& > :not(:last-child)) {
@@ -733,6 +805,9 @@
   }
   .overflow-x-auto {
     overflow-x: auto;
+  }
+  .rounded {
+    border-radius: 0.25rem;
   }
   .rounded-lg {
     border-radius: var(--radius-lg);
@@ -785,11 +860,26 @@
   .bg-lime-500 {
     background-color: var(--color-lime-500);
   }
+  .bg-red-500 {
+    background-color: var(--color-red-500);
+  }
   .bg-red-600 {
     background-color: var(--color-red-600);
   }
+  .bg-red-700 {
+    background-color: var(--color-red-700);
+  }
+  .bg-red-900 {
+    background-color: var(--color-red-900);
+  }
   .bg-white {
     background-color: var(--color-white);
+  }
+  .bg-yellow-100 {
+    background-color: var(--color-yellow-100);
+  }
+  .bg-yellow-700 {
+    background-color: var(--color-yellow-700);
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
@@ -824,6 +914,9 @@
   .text-center {
     text-align: center;
   }
+  .align-middle {
+    vertical-align: middle;
+  }
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
@@ -831,6 +924,10 @@
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
   }
   .text-lg {
     font-size: var(--text-lg);
@@ -933,6 +1030,10 @@
     transition-property: transform, translate, scale, rotate;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .ease-in {
+    --tw-ease: var(--ease-in);
+    transition-timing-function: var(--ease-in);
   }
   .odd\:bg-gray-100 {
     &:nth-child(odd) {
@@ -1194,6 +1295,10 @@ code {
   inherits: false;
 }
 @property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
   syntax: "*";
   inherits: false;
 }

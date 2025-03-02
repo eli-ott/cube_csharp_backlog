@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Employee, Role } from '../assets/models/Employes';
 import { GetEmployeById, SaveEmploye } from '../services/Employes';
 import { GetAllRoles } from '../services/Roles';
+import { toast } from 'react-toastify';
 
 const EmployeeDetails: React.FC = () => {
 	const apiUrl = process.env.REACT_APP_API_URL;
@@ -33,7 +34,7 @@ const EmployeeDetails: React.FC = () => {
 	};
 
 	const fetchRoles = async () => {
-		setRoles(await GetAllRoles() as Role[]);
+		setRoles((await GetAllRoles()) as Role[]);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -52,7 +53,7 @@ const EmployeeDetails: React.FC = () => {
 
 	const handleSave = async () => {
 		if (!employee || !id) {
-			alert('Employée ou ID introuvable');
+			toast.error('Employée ou ID introuvable');
 			return;
 		}
 
@@ -63,7 +64,7 @@ const EmployeeDetails: React.FC = () => {
 			return;
 		}
 
-		alert('Employee updated successfully!');
+		toast.success('Employee updated successfully!');
 		setIsEditing(false);
 		fetchEmployee();
 	};
