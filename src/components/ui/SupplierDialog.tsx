@@ -3,6 +3,7 @@ import ModalTitle from '../common/ModalTitle';
 import { CreateSupplier } from '../../services/Fournisseurs';
 import { SupplierDialogProps } from '../../assets/models/Fournisseurs';
 import NewSupplierForm from '../../features/NewSupplierForm';
+import { toast } from 'react-toastify';
 
 const SupplierDialog: React.FC<SupplierDialogProps> = ({ isOpen, onClose, onSupplierCreated }) => {
 	const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const SupplierDialog: React.FC<SupplierDialogProps> = ({ isOpen, onClose, onSupp
 		e.preventDefault();
 
 		if (Object.values(formData).some((value) => !value)) {
-            alert('Veuillez remplir tous les champs.');
+            toast.warning('Veuillez remplir tous les champs.');
 			return;
 		}
         
@@ -60,7 +61,7 @@ const SupplierDialog: React.FC<SupplierDialogProps> = ({ isOpen, onClose, onSupp
 			onClose();
 		} catch (error) {
 			console.error("Erreur lors de la création de l'employé:", error);
-			alert("Une erreur s'est produite.");
+			toast.error("Une erreur s'est produite.");
 		}
 	};
 

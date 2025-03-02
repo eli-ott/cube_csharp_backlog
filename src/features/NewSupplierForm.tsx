@@ -21,7 +21,7 @@ const NewSupplierForm: React.FC<NewSupplierProps> = ({ isOpen, handleSubmit, onC
 		} else {
 			newData = { ...formData, [e.target.name]: e.target.value };
 		}
-        console.log(newData);
+        
 		setFormData(newData);
 		setData(formData);
 	};

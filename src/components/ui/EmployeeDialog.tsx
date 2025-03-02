@@ -3,6 +3,7 @@ import { EmployeeDialogProps } from '../../assets/models/Employes';
 import NewEmployeeForm from '../../features/NewEmployeeForm';
 import { CreateEmployee } from '../../services/Employes';
 import ModalTitle from '../common/ModalTitle';
+import { toast } from 'react-toastify';
 
 const EmployeeDialog: React.FC<EmployeeDialogProps> = ({ isOpen, onClose, onEmployeeCreated }) => {
 	const [formData, setFormData] = useState({
@@ -25,12 +26,12 @@ const EmployeeDialog: React.FC<EmployeeDialogProps> = ({ isOpen, onClose, onEmpl
 		e.preventDefault();
 
 		if (Object.values(formData).some((value) => !value)) {
-			alert('Veuillez remplir tous les champs.');
+			toast.warning('Veuillez remplir tous les champs.');
 			return;
 		}
 
 		if (passwordError) {
-			alert(passwordError);
+			toast.error(passwordError);
 			return;
 		}
 
@@ -52,7 +53,7 @@ const EmployeeDialog: React.FC<EmployeeDialogProps> = ({ isOpen, onClose, onEmpl
 			onClose();
 		} catch (error) {
 			console.error("Erreur lors de la création de l'employé:", error);
-			alert("Une erreur s'est produite.");
+			toast.error("Une erreur s'est produite.");
 		}
 	};
 
