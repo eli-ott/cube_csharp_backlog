@@ -77,7 +77,6 @@ export const SaveSupplier = async (supplier: Supplier, id: number): Promise<bool
 };
 
 export const CreateSupplier = async (formData: NewSupplierFormData): Promise<Response> => {
-    console.log(formData);
 	return await fetch(apiUrl + '/suppliers', {
 		method: 'POST',
 		headers: {
