@@ -8,6 +8,7 @@ const Home = () => {
 			<HomeLink to="/choix-commandes" color="bg-blue-700" content="Commandes"></HomeLink>
 			<HomeLink to="/employes" color="bg-red-600" content="Employés"></HomeLink>
 			<HomeLink to="/fournisseurs" color="bg-lime-500" content="Fournisseurs"></HomeLink>
+			<HomeLink to="/customers" color="bg-yellow-500" content="Clients"></HomeLink>
 		</div>
 	);
 };
