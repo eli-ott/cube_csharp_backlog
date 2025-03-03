@@ -110,7 +110,7 @@ const SupplierDetail = () => {
 			<div className="border rounded-lg p-4 mb-6">
 				<h2 className="text-xl font-semibold mb-4">Produits créés par l'utilisateur</h2>
 				{supplier.products && supplier.products.length > 0 ? (
-					<div className="grid grid-cols-3 gap-4">
+					<div className="flex flex-row flex-wrap gap-10">
 						{supplier.products.map((product) => (
 							<div
 								key={product.productId}
