@@ -7,6 +7,8 @@ import Fournisseurs from '../pages/Fournisseurs';
 import SupplierDetail from '../pages/SupplierDetail';
 import Client from '../pages/Customer';
 import ClientDetail from '../pages/CustomerDetail';
+import CommandesClient from '../pages/CommandesClient';
+import CommandesClientDetail from '../pages/CommandesClientDetail';
 
 const Router = () => {
 	return (
@@ -20,6 +22,8 @@ const Router = () => {
 				<Route path="/fournisseurs/:id" element={<SupplierDetail />} />
 				<Route path="/customers" element={<Client />} />
 				<Route path="/customers/:id" element={<ClientDetail />} />
+				<Route path="/commandes-client" element={<CommandesClient />} />
+				<Route path="/commandes-client/:id" element={<CommandesClientDetail />} />
 			</Routes>
 		</BrowserRouter>
 	);
