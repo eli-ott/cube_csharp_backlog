@@ -9,9 +9,9 @@ const headers: HeadersInit = {
 	Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
 };
 
-export const GetCommandesClient = async (): Promise<ApiReturn | null> => {
+export const GetCommandesFournisseur = async (): Promise<ApiReturn | null> => {
 	try {
-		const commandesRes = await fetch(apiUrl + '/orders', {
+		const commandesRes = await fetch(apiUrl + '/supplier-orders', {
 			method: 'GET',
 			headers,
 		});
@@ -25,9 +25,9 @@ export const GetCommandesClient = async (): Promise<ApiReturn | null> => {
 	}
 };
 
-export const GetCommandeClientById = async (id: number): Promise<CommandeClient | null> => {
+export const GetCommandeFournisseurById = async (id: number): Promise<CommandeClient | null> => {
 	try {
-		const commandeRes = await fetch(apiUrl + `/orders/${id}`, {
+		const commandeRes = await fetch(apiUrl + `/supplier-orders/${id}`, {
 			method: 'GET',
 			headers,
 		});
@@ -41,9 +41,9 @@ export const GetCommandeClientById = async (id: number): Promise<CommandeClient 
 	}
 };
 
-export const UpdateCommandeClient = async (commande: CommandeClient): Promise<CommandeClient | null> => {
+export const UpdateCommandeFournisseur = async (commande: CommandeClient): Promise<CommandeClient | null> => {
 	try {
-		const updateRes = await fetch(apiUrl + `/orders/${commande.orderId}`, {
+		const updateRes = await fetch(apiUrl + `/supplier-orders/${commande.orderId}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json', ...headers },
 			body: JSON.stringify({ ...commande, statusId: commande.status.statusId }),
@@ -58,9 +58,9 @@ export const UpdateCommandeClient = async (commande: CommandeClient): Promise<Co
 	}
 };
 
-export const DeleteCommandeClient = async (id: number) => {
+export const DeleteCommandeFournisseur = async (id: number) => {
 	try {
-		const deleteCommandeClientRes = await fetch(apiUrl + `/orders/${id}`, {
+		const deleteCommandeClientRes = await fetch(apiUrl + `/supplier-orders/${id}`, {
 			method: 'DELETE',
 			headers,
 		});

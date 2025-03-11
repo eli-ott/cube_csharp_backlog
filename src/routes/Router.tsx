@@ -9,6 +9,8 @@ import Client from '../pages/Customer';
 import ClientDetail from '../pages/CustomerDetail';
 import CommandesClient from '../pages/CommandesClient';
 import CommandesClientDetail from '../pages/CommandesClientDetail';
+import CommandesFournisseurDetail from '../pages/CommandesFournisseurDetail';
+import CommandesFournisseur from '../pages/CommandesFournisseur';
 
 const Router = () => {
 	return (
@@ -24,6 +26,8 @@ const Router = () => {
 				<Route path="/customers/:id" element={<ClientDetail />} />
 				<Route path="/commandes-client" element={<CommandesClient />} />
 				<Route path="/commandes-client/:id" element={<CommandesClientDetail />} />
+				<Route path="/commandes-fournisseur" element={<CommandesFournisseur />} />
+				<Route path="/commandes-fournisseur/:id" element={<CommandesFournisseurDetail />} />
 			</Routes>
 		</BrowserRouter>
 	);

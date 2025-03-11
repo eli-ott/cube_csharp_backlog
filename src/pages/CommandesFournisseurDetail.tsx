@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { GetCommandeClientById, UpdateCommandeClient } from '../services/CommandesClient';
 import { CommandeClient } from '../assets/models/CommandeClient';
 import { Status } from '../assets/models/Customer';
 import { GetStatus } from '../services/Status';
 import ModalSelect from '../components/common/ModalSelect';
+import { GetCommandeFournisseurById, UpdateCommandeFournisseur } from '../services/CommandesFournisseur';
 
-const CommandeClientDetail = () => {
+const CommandesFournisseurDetail = () => {
 	const { id } = useParams();
 	const [order, setOrder] = useState<CommandeClient>();
 	const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ const CommandeClientDetail = () => {
 
 	useEffect(() => {
 		const fetchOrderDetail = async () => {
-			const data = await GetCommandeClientById(parseInt(id!));
+			const data = await GetCommandeFournisseurById(parseInt(id!));
 			const statuses = await GetStatus();
 
 			setLoading(false);
@@ -43,7 +43,7 @@ const CommandeClientDetail = () => {
 			})!,
 		};
 
-		await UpdateCommandeClient(updatedOrder);
+		await UpdateCommandeFournisseur(updatedOrder);
 
 		setOrder(updatedOrder);
 		setIsEditing(false);
@@ -157,4 +157,4 @@ const CommandeClientDetail = () => {
 	);
 };
 
-export default CommandeClientDetail;
+export default CommandesFournisseurDetail;

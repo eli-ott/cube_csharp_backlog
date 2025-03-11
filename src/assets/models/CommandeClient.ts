@@ -2,7 +2,7 @@ import { Customer, Status } from './Customer';
 import { Product } from './Product';
 
 export interface CommandeClient {
-	orderId: 0;
+	orderId: number;
 	deliveryDate: string;
 	deletionTime: string;
 	updateTime: string;
@@ -13,8 +13,8 @@ export interface CommandeClient {
 }
 
 export interface LineCommandeClient {
-	quantity: 0;
-	unitPrice: 0;
+	quantity: number;
+	unitPrice: number;
 	updateTime: string;
 	creationTime: string;
 	deletionTime: string;

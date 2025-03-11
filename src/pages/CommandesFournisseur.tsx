@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
 import refreshIcon from '../assets/icons/refresh.svg';
 import { Order } from '../assets/models/Customer';
-import { GetCommandesClient } from '../services/CommandesClient';
 import { useNavigate } from 'react-router-dom';
 import { CommandeClient } from '../assets/models/CommandeClient';
+import { GetCommandesFournisseur } from '../services/CommandesFournisseur';
 
-const CommandesClient = () => {
-	const navigate = useNavigate();
-	const [orders, setOrders] = useState<CommandeClient[]>([]);
+const CommandesFournisseur = () => {
+    const navigate = useNavigate();
+    const [orders, setOrders] = useState<CommandeClient[]>([]);
 	const [page, setPage] = useState<number>(1);
 	const [maxPage, setMaxPage] = useState<number>(1);
 	const [refresh, setRefresh] = useState<number>(1);
 
 	useEffect(() => {
 		const fetchOrders = async () => {
-			let orders = await GetCommandesClient();
+			let orders = await GetCommandesFournisseur();
 
 			setPage(orders!.currentPage);
 			setMaxPage(orders!.totalPages);
 			setOrders(orders!.items);
 		};
-		fetchOrders();
+        fetchOrders();
 	}, [page, refresh]);
 
 	/**
@@ -36,14 +36,14 @@ const CommandesClient = () => {
 		setPage(newPage);
 	};
 
-	/**
-	 * Handle a row click
-	 *
-	 * @param {number} id The order id
-	 */
-	const handleRowClick = (id: number) => {
-		navigate('/commandes-client/' + id);
-	};
+    /**
+     * Handle a row click
+     * 
+     * @param {number} id The order id
+     */
+    const handleRowClick = (id: number) => {
+        navigate('/commandes-client/' + id);
+    }
 
 	return (
 		<div className="overflow-x-auto p-4 flex flex-col gap-4">
@@ -77,10 +77,7 @@ const CommandesClient = () => {
 						orders
 							.sort((a: Order, b: Order) => a.orderId - b.orderId)
 							.map((order) => (
-								<tr
-									key={order.orderId}
-									className="odd:bg-gray-100 even:bg-white hover:bg-gray-200 transition-all cursor-pointer"
-									onClick={() => handleRowClick(order.orderId)}>
+								<tr key={order.orderId} className="odd:bg-gray-100 even:bg-white hover:bg-gray-200 transition-all cursor-pointer" onClick={() => handleRowClick(order.orderId)}>
 									<td className="text-center px-6 py-3 border-b">{order.orderId}</td>
 									<td className="text-center px-6 py-3 border-b">
 										{/** @ts-ignore */}
@@ -126,4 +123,4 @@ const CommandesClient = () => {
 	);
 };
 
-export default CommandesClient;
+export default CommandesFournisseur;
