@@ -62,24 +62,24 @@ const EmployeeDetails: React.FC = () => {
 		fetchEmployee();
 	};
 
-	if (loading) return <p className="text-center mt-4">Loading...</p>;
+	if (loading) return <p className="text-center mt-4">Chargement...</p>;
 	if (error) return <p className="text-center text-red-500 mt-4">{error}</p>;
-	if (!employee) return <p className="text-center text-gray-500 mt-4">Employee not found</p>;
+	if (!employee) return <p className="text-center text-gray-500 mt-4">Impossible de trouver l'employé</p>;
 
 	return (
 		<div className="max-w-3xl mx-auto mt-8 p-6 bg-white shadow-md rounded-lg">
-			<h2 className="text-2xl font-bold mb-4 text-center">Employee Details</h2>
+			<h2 className="text-2xl font-bold mb-4 text-center">Détail de l'employé</h2>
 
 			<div className="grid grid-cols-2 gap-6">
 				{/* Employee ID */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
-					<p className="text-sm font-medium text-gray-500">Employee ID</p>
+					<p className="text-sm font-medium text-gray-500">Id employé</p>
 					<p className="text-lg font-semibold">{employee.employeeId}</p>
 				</div>
 
 				{/* First Name */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
-					<p className="text-sm font-medium text-gray-500">First Name</p>
+					<p className="text-sm font-medium text-gray-500">Nom de famille</p>
 					{isEditing ? (
 						<input
 							type="text"
@@ -95,7 +95,7 @@ const EmployeeDetails: React.FC = () => {
 
 				{/* Last Name */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
-					<p className="text-sm font-medium text-gray-500">Last Name</p>
+					<p className="text-sm font-medium text-gray-500">Prénom</p>
 					{isEditing ? (
 						<input type="text" name="lastName" value={employee.lastName} onChange={handleChange} className="w-full p-2 border rounded-md" />
 					) : (
@@ -115,7 +115,7 @@ const EmployeeDetails: React.FC = () => {
 
 				{/* Phone */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
-					<p className="text-sm font-medium text-gray-500">Phone</p>
+					<p className="text-sm font-medium text-gray-500">Tel</p>
 					{isEditing ? (
 						<input type="text" name="phone" value={employee.phone} onChange={handleChange} className="w-full p-2 border rounded-md" />
 					) : (
@@ -125,7 +125,7 @@ const EmployeeDetails: React.FC = () => {
 
 				{/* Role */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
-					<p className="text-sm font-medium text-gray-500">Role</p>
+					<p className="text-sm font-medium text-gray-500">Fonction</p>
 					{isEditing ? (
 						<select name="roleId" value={employee.role.roleId} onChange={handleChange} className="w-full p-2 border rounded-md">
 							{roles.map((role) => (
@@ -141,7 +141,7 @@ const EmployeeDetails: React.FC = () => {
 
 				{/* Creation Time */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
-					<p className="text-sm font-medium text-gray-500">Creation Time</p>
+					<p className="text-sm font-medium text-gray-500">Date de création</p>
 					<p className="text-lg font-semibold">
 						{new Date(employee.creationTime).toLocaleDateString('fr-FR')}&nbsp;
 						{new Date(employee.creationTime).toLocaleTimeString('fr-FR')}
@@ -150,7 +150,7 @@ const EmployeeDetails: React.FC = () => {
 
 				{/* Update Time */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
-					<p className="text-sm font-medium text-gray-500">Update Time</p>
+					<p className="text-sm font-medium text-gray-500">Date de mise à jour</p>
 					<p className="text-lg font-semibold">
 						{new Date(employee.updateTime).toLocaleDateString('fr-FR')}&nbsp;
 						{new Date(employee.creationTime).toLocaleTimeString('fr-FR')}
@@ -159,7 +159,7 @@ const EmployeeDetails: React.FC = () => {
 
 				{/* Deletion Time */}
 				<div className="bg-gray-100 p-4 rounded-md shadow">
-					<p className="text-sm font-medium text-gray-500">Deletion Time</p>
+					<p className="text-sm font-medium text-gray-500">Date de suppression</p>
 					{employee.deletionTime ? (
 						<p className="text-lg font-semibold">
 							{new Date(employee.deletionTime).toLocaleDateString('fr-FR')}
@@ -174,16 +174,16 @@ const EmployeeDetails: React.FC = () => {
 			{/* Action Buttons */}
 			<div className="flex justify-between mt-6">
 				<button onClick={() => navigate('/employes')} className="px-4 py-2 bg-gray-500 text-white rounded-md">
-					Back
+					Retour
 				</button>
 
 				{isEditing ? (
 					<button onClick={handleSave} className="px-4 py-2 bg-green-600 text-white rounded-md">
-						Save
+						Enregistrer
 					</button>
 				) : (
 					<button onClick={() => setIsEditing(true)} className="px-4 py-2 bg-blue-600 text-white rounded-md">
-						Edit
+						Modifier
 					</button>
 				)}
 			</div>

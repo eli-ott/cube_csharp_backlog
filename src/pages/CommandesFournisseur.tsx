@@ -58,11 +58,11 @@ const CommandesFournisseur = () => {
 			<table className="min-w-full border-collapse rounded-lg overflow-hidden shadow-lg">
 				<thead>
 					<tr className="bg-gray-700 text-white">
-						<th className="text-center px-6 py-3 border-b">Order ID</th>
-						<th className="text-center px-6 py-3 border-b">Customer</th>
-						<th className="text-center px-6 py-3 border-b">Delivery Date</th>
-						<th className="text-center px-6 py-3 border-b">Status</th>
-						<th className="text-center px-6 py-3 border-b">Total Price</th>
+						<th className="text-center px-6 py-3 border-b">Id commande</th>
+						<th className="text-center px-6 py-3 border-b">Client</th>
+						<th className="text-center px-6 py-3 border-b">Date de livraison</th>
+						<th className="text-center px-6 py-3 border-b">Statut</th>
+						<th className="text-center px-6 py-3 border-b">Total</th>
 					</tr>
 				</thead>
 
@@ -101,7 +101,7 @@ const CommandesFournisseur = () => {
 									<button
 										onClick={() => changePage(-1)}
 										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
-										Prev
+										Precedent
 									</button>
 								) : null}
 								{maxPage && page !== 1 ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{1}</span> : null}
@@ -111,7 +111,7 @@ const CommandesFournisseur = () => {
 									<button
 										onClick={() => changePage(1)}
 										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
-										Next
+										Suivant
 									</button>
 								) : null}
 							</div>

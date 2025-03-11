@@ -152,7 +152,7 @@ const Fournisseurs = () => {
 									<button
 										onClick={() => changePage(-1)}
 										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
-										Prev
+										Precedent
 									</button>
 								) : null}
 								{page !== 1 ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{1}</span> : null}
@@ -162,7 +162,7 @@ const Fournisseurs = () => {
 									<button
 										onClick={() => changePage(1)}
 										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
-										Next
+										Suivant
 									</button>
 								) : null}
 							</div>

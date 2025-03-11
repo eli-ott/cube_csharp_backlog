@@ -21,15 +21,15 @@ const CustomerDetail = () => {
 		fetchCustomer();
 	}, [id]);
 
-	if (!customer) return <p className="text-center text-gray-500">Loading...</p>;
+	if (!customer) return <p className="text-center text-gray-500">Chargement...</p>;
 
 	return (
 		<div className="p-6 bg-white shadow-lg rounded-lg max-w-4xl mx-auto">
-			<h1 className="text-3xl font-bold mb-6">Customer Details</h1>
+			<h1 className="text-3xl font-bold mb-6">Détail du client</h1>
 
 			{/* Customer Information */}
 			<div className="border rounded-lg p-4 mb-6">
-				<h2 className="text-xl font-semibold mb-4">General Information</h2>
+				<h2 className="text-xl font-semibold mb-4">Information générales</h2>
 				<div className="grid grid-cols-2 gap-4">
 					{Object.entries(customer).map(([key, value]) => {
 						if ((typeof value === 'object' && value !== null) || uselessFields.includes(key)) return null;
@@ -48,7 +48,7 @@ const CustomerDetail = () => {
 
 			{/* Address Section */}
 			<div className="border rounded-lg p-4 mb-6">
-				<h2 className="text-xl font-semibold mb-4">Address</h2>
+				<h2 className="text-xl font-semibold mb-4">Adresse</h2>
 				<div className="grid grid-cols-2 gap-4">
 					{customer.address &&
 						Object.entries(customer.address).map(([key, value]) => (
@@ -63,7 +63,7 @@ const CustomerDetail = () => {
 
 			{/* Orders Section */}
 			<div className="border rounded-lg p-4 mb-6">
-				<h2 className="text-xl font-semibold mb-4">Orders</h2>
+				<h2 className="text-xl font-semibold mb-4">Commandes</h2>
 				{customer.orders && customer.orders.length > 0 ? (
 					customer.orders.map((order) => (
 						<div key={order.orderId} className="bg-gray-100 p-4 rounded-md shadow mb-4">
@@ -84,7 +84,7 @@ const CustomerDetail = () => {
 
 			{/* Reviews Section */}
 			<div className="border rounded-lg p-4 mb-6">
-				<h2 className="text-xl font-semibold mb-4">Customer Reviews</h2>
+				<h2 className="text-xl font-semibold mb-4">Avis</h2>
 				{customer.reviews && customer.reviews.length > 0 ? (
 					customer.reviews.map((review) => (
 						<div key={`${review.userId}-${review.productId}`} className="bg-gray-100 p-4 rounded-md shadow">
@@ -99,7 +99,7 @@ const CustomerDetail = () => {
 						</div>
 					))
 				) : (
-					<p>No reviews yet.</p>
+					<p>Aucun avis pour le moment.</p>
 				)}
 			</div>
 		</div>
