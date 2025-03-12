@@ -4,6 +4,10 @@ import ChoixCommandes from '../pages/ChoixCommandes';
 import Employes from '../pages/Employes';
 import EmployeeDetails from '../pages/EmployeeDetails';
 import Fournisseurs from '../pages/Fournisseurs';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+import RegisterConfirmation from '../pages/RegisterConfirmation';
+
 
 const Router = () => {
     return (
@@ -14,6 +18,9 @@ const Router = () => {
                 <Route path='/employes' element={<Employes/>}/>
                 <Route path="/employes/:id" element={<EmployeeDetails />} />
                 <Route path="/fournisseurs" element={<Fournisseurs />} />
+                <Route path='/login' element={<Login/>}/>
+                <Route path='/register' element={<Register/>}/>
+                <Route path='/registerConfirmation' element={<RegisterConfirmation/>}/>
             </Routes>
         </BrowserRouter>
     );

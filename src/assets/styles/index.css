@@ -17,3 +17,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.styled-bg {
+  background-image: url("../images/auth_pages/background.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-clip:border-box;
+
+}
+@media screen and (max-width: 768px) {
+  .styled-bg {
+  background-image: url("../images/auth_pages/background_mobile.svg");
+  }
+}
