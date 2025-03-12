@@ -11,6 +11,7 @@ import CommandesClient from '../pages/CommandesClient';
 import CommandesClientDetail from '../pages/CommandesClientDetail';
 import CommandesFournisseurDetail from '../pages/CommandesFournisseurDetail';
 import CommandesFournisseur from '../pages/CommandesFournisseur';
+import Products from '../pages/Products';
 
 const Router = () => {
 	return (
@@ -28,6 +29,7 @@ const Router = () => {
 				<Route path="/commandes-client/:id" element={<CommandesClientDetail />} />
 				<Route path="/commandes-fournisseur" element={<CommandesFournisseur />} />
 				<Route path="/commandes-fournisseur/:id" element={<CommandesFournisseurDetail />} />
+				<Route path="/produits" element={<Products />} />
 			</Routes>
 		</BrowserRouter>
 	);

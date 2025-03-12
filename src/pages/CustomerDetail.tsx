@@ -9,7 +9,6 @@ const CustomerDetail = () => {
 
 	useEffect(() => {
 		const fetchCustomer = async () => {
-			console.log(id);
 			try {
 				const response = await GetCustomerById(parseInt(id!));
 				setCustomer(response);
