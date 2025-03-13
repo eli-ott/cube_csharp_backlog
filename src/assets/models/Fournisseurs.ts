@@ -45,3 +45,41 @@ export interface NewSupplierFormData {
 		complement: string;
 	};
 }
+
+export const supplierFields = {
+	supplierId: 'Id',
+	lastName: 'Nom de famille',
+	firstName: 'Prénom',
+	contact: 'Contact',
+	email: 'Email',
+	phone: 'Téléphone',
+	siret: 'Siret',
+	deletionTime: 'Date de suppression',
+	updateTime: 'Date de mise à jour',
+	creationTime: 'Date de création',
+	addressId: 'Id',
+	addressLine: 'Adresse',
+	city: 'Ville',
+	zipCode: 'Code postal',
+	country: 'Pays',
+	complement: 'Complément',
+	cuvee: 'Cuvée',
+	year: 'Année',
+	producer: 'Producteur',
+	quantity: 'Quantité',
+	autoRestock: 'Commandes automatique',
+};
+
+export const modifiableFields = [
+	'lastName',
+	'firstName',
+	'contact',
+	'email',
+	'phone',
+	'siret',
+	'addressLine',
+	'city',
+	'zipCode',
+	'country',
+	'complement',
+];

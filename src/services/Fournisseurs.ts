@@ -42,6 +42,22 @@ export const GetSuppliers = async (page: number): Promise<ApiReturn | null> => {
 	}
 };
 
+export const GetAllSuppliers = async (): Promise<ApiReturn | null> => {
+	try {
+		const suppliersRes = await fetch(apiUrl + `/suppliers?size=${999999}`, {
+			method: 'GET',
+			headers,
+		});
+		if (!suppliersRes.ok) throw new Error('Une erreur est survenu');
+
+		const data = await suppliersRes.json();
+		return data;
+	} catch (e) {
+		console.error(e);
+		return null;
+	}
+};
+
 export const GetSupplierById = async (id: number): Promise<Supplier | null> => {
 	try {
 		const suppliersRes = await fetch(apiUrl + `/suppliers/${id}`, {
@@ -63,12 +79,7 @@ export const SaveSupplier = async (supplier: Supplier, id: number): Promise<bool
 		const response = await fetch(apiUrl + `/suppliers/${id}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json', ...headers },
-			body: JSON.stringify({
-				firstName: supplier?.firstName,
-				lastName: supplier?.lastName,
-				email: supplier?.email,
-				phone: supplier?.phone,
-			}),
+			body: JSON.stringify(supplier),
 		});
 
 		if (!response.ok) throw new Error('Failed to update supplier');
