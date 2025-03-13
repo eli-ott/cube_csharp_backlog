@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Family, Product, ProductDialogProps, ProductFormData } from '../../assets/models/Product';
+import { Family, ProductDialogProps, ProductFormData } from '../../assets/models/Product';
 import { AddProduct } from '../../services/Products';
 import { Supplier } from '../../assets/models/Fournisseurs';
-import { Status } from '../../assets/models/Customer';
-import { GetAllSuppliers, GetSuppliers } from '../../services/Fournisseurs';
-import { GetStatus } from '../../services/Status';
+import { GetAllSuppliers } from '../../services/Fournisseurs';
 import { GetFamilies } from '../../services/Families';
 import ModalSelect from '../common/ModalSelect';
 import ModalButton from '../common/ModalButton';
@@ -12,6 +10,7 @@ import ModalButton from '../common/ModalButton';
 const ProductDialog: React.FC<ProductDialogProps> = ({ isOpen, onClose, onProductCreated }) => {
 	const [formData, setFormData] = useState<ProductFormData>({
 		name: undefined,
+		description: undefined,
 		cuvee: undefined,
 		year: undefined,
 		isBio: undefined,
@@ -59,9 +58,9 @@ const ProductDialog: React.FC<ProductDialogProps> = ({ isOpen, onClose, onProduc
 			if (key === 'images' && formData.images && formData.images.length > 0) {
 				formData.images.forEach((file: File) => {
 					if (file.size > 5000000) {
-						alert('Un des fichier est trop volumineux')
+						alert('Un des fichier est trop volumineux');
 						return;
-					};
+					}
 
 					productData.append('images', file);
 				});
@@ -91,6 +90,16 @@ const ProductDialog: React.FC<ProductDialogProps> = ({ isOpen, onClose, onProduc
 						name="name"
 						placeholder="Nom"
 						value={formData.name}
+						onChange={handleChange}
+						className="w-full p-2 border rounded-md"
+						required
+					/>
+
+					<input
+						type="text"
+						name="description"
+						placeholder="Description"
+						value={formData.description}
 						onChange={handleChange}
 						className="w-full p-2 border rounded-md"
 						required
@@ -199,7 +208,7 @@ const ProductDialog: React.FC<ProductDialogProps> = ({ isOpen, onClose, onProduc
 						optionValue="familyId"
 						required={true}></ModalSelect>
 
-					<input type="file" size={5000000} multiple onChange={handleImageChange} className="w-full p-2 border rounded-md" />
+					<input type="file" size={5000000} multiple max={5} onChange={handleImageChange} className="w-full p-2 border rounded-md" />
 
 					<div className="flex justify-between space-x-2 w-full">
 						<ModalButton label="Annuler" type="button" isCta={false} onClick={() => onClose()}></ModalButton>

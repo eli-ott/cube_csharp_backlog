@@ -3,6 +3,7 @@ import { Review } from "./Customer";
 export interface Product {
 	productId: number;
 	name: string;
+	description: string;
 	cuvee: string;
 	year: number;
 	producerName: string;
@@ -49,6 +50,7 @@ export interface ProductDialogProps {
 
 export interface ProductFormData {
 	name?: string;
+	description?: string;
 	cuvee?: string;
 	year?: number;
 	producer?: string;

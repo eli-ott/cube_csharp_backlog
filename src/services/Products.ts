@@ -9,9 +9,9 @@ const headers: HeadersInit = {
 	Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
 };
 
-export const GetProducts = async (): Promise<ApiReturn | null> => {
+export const GetProducts = async (page: number): Promise<ApiReturn | null> => {
 	try {
-		const response = await fetch(apiUrl + '/products', {
+		const response = await fetch(apiUrl + `/products/?page=${page}`, {
 			method: 'GET',
 			headers,
 		});
@@ -27,7 +27,7 @@ export const GetProducts = async (): Promise<ApiReturn | null> => {
 
 export const GetProductById = async (id: number): Promise<Product | null> => {
 	try {
-		const response = await fetch(apiUrl + `/products${id}`, {
+		const response = await fetch(apiUrl + `/products/${id}`, {
 			method: 'GET',
 			headers,
 		});
@@ -59,19 +59,12 @@ export const AddProduct = async (product: FormData): Promise<Product | null> => 
 	}
 };
 
-export const UpdateProduct = async (product: Product): Promise<Product | null> => {
+export const UpdateProduct = async (product: FormData): Promise<Product | null> => {
 	try {
-		const formData = new FormData();
-
-		for (const name in product) {
-			//@ts-ignore
-			formData.append(name, product[name]);
-		}
-
-		const response = await fetch(apiUrl + `/products/${product.productId}`, {
+		const response = await fetch(apiUrl + `/products/${product.get('productId')}`, {
 			method: 'PUT',
 			headers,
-			body: formData,
+			body: product,
 		});
 		if (!response.ok) throw new Error('Erreur lors de la mise à jour du produit');
 
@@ -97,24 +90,24 @@ export const DeleteProduct = async (id: number) => {
 
 export const ToggleBio = async (id: number) => {
 	try {
-        const response = await fetch(apiUrl + `/products/${id}/toggle-bio`, {
-            method: 'PUT',
-            headers
-        });
-        if (!response.ok) throw new Error('Erreur lors de la modification du produit');
+		const response = await fetch(apiUrl + `/products/${id}/toggle-bio`, {
+			method: 'PUT',
+			headers,
+		});
+		if (!response.ok) throw new Error('Erreur lors de la modification du produit');
 	} catch (e) {
-        console.error(e);
-    }
+		console.error(e);
+	}
 };
 
 export const ToggleRestock = async (id: number) => {
 	try {
-        const response = await fetch(apiUrl + `/products/${id}/toggle-restock`, {
-            method: 'PUT',
-            headers
-        });
-        if (!response.ok) throw new Error('Erreur lors de la modification du produit');
+		const response = await fetch(apiUrl + `/products/${id}/toggle-restock`, {
+			method: 'PUT',
+			headers,
+		});
+		if (!response.ok) throw new Error('Erreur lors de la modification du produit');
 	} catch (e) {
-        console.error(e);
-    }
+		console.error(e);
+	}
 };

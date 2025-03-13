@@ -5,20 +5,24 @@ import trash from '../assets/icons/delete.svg';
 import refreshIcon from '../assets/icons/refresh.svg';
 import ProductDialog from '../components/ui/ProductDialog';
 import { useConfirm } from '../components/common/ConfirmProvider';
+import FamilyDialog from '../components/ui/FamilyDialog';
+import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
 	const confirm = useConfirm();
+	const navigate = useNavigate();
 
 	const [products, setProducts] = useState<Product[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [productDialogOpen, setProductDialogOpen] = useState(false);
+	const [familyDialogOpen, setFamilyDialogOpen] = useState(false);
 	const [page, setPage] = useState<number>(1);
 	const [refresh, setRefresh] = useState<number>(0);
 	const [maxPage, setMaxPage] = useState<number>(1);
 
 	useEffect(() => {
 		const fetchProducts = async () => {
-			const data = await GetProducts();
+			const data = await GetProducts(page);
 
 			setProducts(data!.items);
 			setMaxPage(data!.totalPages);
@@ -67,6 +71,8 @@ const Products = () => {
 				onClose={() => setProductDialogOpen(false)}
 				onProductCreated={() => setRefresh(refresh + 1)}
 			/>
+			<FamilyDialog isOpen={familyDialogOpen} onClose={() => setFamilyDialogOpen(false)} />
+
 			<div className="actions flex flex-row gap-4">
 				<button
 					className="h-10 w-10 flex justify-center items-center bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
@@ -77,6 +83,11 @@ const Products = () => {
 					className="h-10 w-52 bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
 					onClick={() => setProductDialogOpen(true)}>
 					Ajouter un produit
+				</button>
+				<button
+					className="h-10 w-52 bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
+					onClick={() => setFamilyDialogOpen(true)}>
+					Ajouter une famille
 				</button>
 			</div>
 
@@ -99,7 +110,7 @@ const Products = () => {
 				</thead>
 				<tbody>
 					{products.map((product) => (
-						<tr key={product.productId} className="hover:bg-gray-50">
+						<tr key={product.productId} className="hover:bg-gray-50" onClick={() => navigate(`/produits/${product.productId}`)}>
 							<td className="text-center px-6 py-3 border-b">
 								{product.images.length > 0 ? (
 									<img src={product.images[0].imageUrl} alt={product.name} className="w-16 h-16 object-cover rounded-md" />
