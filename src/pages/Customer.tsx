@@ -1,33 +1,27 @@
 import { useEffect, useState } from 'react';
-import { Employee } from '../assets/models/Employes';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import trash from '../assets/icons/delete.svg';
 import refreshIcon from '../assets/icons/refresh.svg';
 import { useConfirm } from '../components/common/ConfirmProvider';
-import EmployeeDialog from '../components/ui/EmployeeDialog';
-import RoleDialog from '../components/ui/RoleDialog';
-import { DeleteEmploye, GetEmployes } from '../services/Employes';
-import SearchbarEmployee from '../components/ui/EmployeeSearchBar';
+import { GetCustomers, DeleteCustomer } from '../services/Customer';
+import { Customer as CustomerType } from '../assets/models/Customer';
 
-
-const Employes = () => {
+const Customer = () => {
 	const navigate = useNavigate();
 	const confirm = useConfirm();
 
 	const [refresh, setRefresh] = useState<number>(0);
-	const [employes, setEmployes] = useState<Employee[]>([]);
+	const [customer, setCustomer] = useState<CustomerType[]>([]);
 	const [page, setPage] = useState<number>(1);
 	const [maxPage, setMaxPage] = useState<number>(1);
-	const [employeeDialogOpen, setEmployeeDialogOpen] = useState<boolean>(false);
-	const [roleDialogOpen, setRoleDialogOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		const fetchEmployes = async () => {
-			let data = await GetEmployes(page);
+			let data = await GetCustomers(page);
 
 			setPage(data!.currentPage);
 			setMaxPage(data!.totalPages);
-			setEmployes(data!.items);
+			setCustomer(data!.items);
 		};
 		fetchEmployes();
 	}, [page, refresh]);
@@ -48,64 +42,39 @@ const Employes = () => {
 	/**
 	 * Handle the click of a row
 	 *
-	 * @param {number} employeeId The id of the employee
+	 * @param {number} customerId The id of the customer
 	 */
-	const handleRowClick = (employeeId: number) => {
-		navigate(`/employes/${employeeId}`);
+	const handleRowClick = (customerId: number) => {
+		navigate(`/customers/${customerId}`);
 	};
 
 	/**
-	 * Delete an employee
+	 * Delete an customer
 	 *
 	 * @param {React.MouseEvent} event The event
-	 * @param {number} employeeId Id of the employee to delete
+	 * @param {number} customerId Id of the customer to delete
 	 */
-	const deleteEmploye = async (event: React.MouseEvent, employeeId: number) => {
+	const deleteEmploye = async (event: React.MouseEvent, customerId: number) => {
 		event.stopPropagation();
 
 		let confirmRes = await confirm(
-			`Êtes vous sur de vouloir supprimer l'employee ? Cette action supprime tous les éléments associé à l'utilisateur et est irreversible.`
+			`Êtes vous sur de vouloir supprimer le fournisseur ? Cette action supprime tous les éléments associé à l'utilisateur et est irreversible.`
 		);
 		if (!confirmRes) return;
 
-		await DeleteEmploye(employeeId);
+		await DeleteCustomer(customerId);
 		setRefresh(refresh + 1);
 	};
 
 	return (
 		<div className="overflow-x-auto p-4 flex flex-col gap-4">
-			<EmployeeDialog
-				isOpen={employeeDialogOpen}
-				onClose={() => setEmployeeDialogOpen(false)}
-				onEmployeeCreated={() => setRefresh(refresh + 1)}></EmployeeDialog>
-
-			<RoleDialog
-				isOpen={roleDialogOpen}
-				onRoleCreated={() => setRefresh(refresh + 1)}
-				onClose={() => {
-					setRoleDialogOpen(false);
-				}}></RoleDialog>
-
 			<div className="actions flex flex-row gap-4">
 				<button
 					className="h-10 w-10 flex justify-center items-center bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
 					onClick={() => setRefresh(refresh + 1)}>
 					<img src={refreshIcon} alt="refresh icon" />
 				</button>
-				<button
-					className="h-10 w-52 bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
-					onClick={() => setEmployeeDialogOpen(true)}>
-					Ajouter un employé
-				</button>
-				<button
-					className="h-10 w-52 bg-gray-700 text-white font-medium rounded-md shadow-md hover:bg-gray-800 transition-all cursor-pointer"
-					onClick={() => setRoleDialogOpen(true)}>
-					Ajouter un rôle
-				</button>
 			</div>
-
-				<SearchbarEmployee/>
-
 
 			<table className="min-w-full border-collapse rounded-lg overflow-hidden shadow-lg">
 				<thead>
@@ -115,7 +84,6 @@ const Employes = () => {
 						<th className="text-center px-6 py-3 border-b">Nom de famille</th>
 						<th className="text-center px-6 py-3 border-b">Email</th>
 						<th className="text-center px-6 py-3 border-b">Tel</th>
-						<th className="text-center px-6 py-3 border-b">Poste</th>
 						<th className="text-center px-6 py-3 border-b">Créé le</th>
 						<th className="text-center px-6 py-3 border-b">Mis à jour le</th>
 						<th className="text-center px-6 py-3 border-b">Actions</th>
@@ -123,37 +91,36 @@ const Employes = () => {
 				</thead>
 
 				<tbody>
-					{employes.length === 0 ? (
+					{customer.length === 0 ? (
 						<tr>
 							<td colSpan={9} className="text-center py-6 text-gray-500">
 								Aucun employé trouvé
 							</td>
 						</tr>
 					) : (
-						employes
-							.sort((a: Employee, b: Employee) => a.employeeId - b.employeeId)
-							.map((employee) => (
+						customer
+							.sort((a: CustomerType, b: CustomerType) => a.customerId - b.customerId)
+							.map((customer) => (
 								<tr
-									key={employee.employeeId}
+									key={customer.customerId}
 									className="odd:bg-gray-100 even:bg-white hover:bg-gray-200 transition-all cursor-pointer"
-									onClick={() => handleRowClick(employee.employeeId)}>
-									<td className="text-center px-6 py-3 border-b">{employee.employeeId}</td>
-									<td className="text-center px-6 py-3 border-b">{employee.firstName}</td>
-									<td className="text-center px-6 py-3 border-b">{employee.lastName}</td>
-									<td className="text-center px-6 py-3 border-b">{employee.email}</td>
-									<td className="text-center px-6 py-3 border-b">{employee.phone}</td>
-									<td className="text-center px-6 py-3 border-b">{employee.role.name}</td>
+									onClick={() => handleRowClick(customer.customerId)}>
+									<td className="text-center px-6 py-3 border-b">{customer.customerId}</td>
+									<td className="text-center px-6 py-3 border-b">{customer.firstName}</td>
+									<td className="text-center px-6 py-3 border-b">{customer.lastName}</td>
+									<td className="text-center px-6 py-3 border-b">{customer.email}</td>
+									<td className="text-center px-6 py-3 border-b">{customer.phone}</td>
 									<td className="text-center px-6 py-3 border-b">
-										{new Date(employee.creationTime).toLocaleDateString('fr-FR')}&nbsp;
-										{new Date(employee.creationTime).toLocaleTimeString('fr-FR')}
+										{new Date(customer.creationTime).toLocaleDateString('fr-FR')}&nbsp;
+										{new Date(customer.creationTime).toLocaleTimeString('fr-FR')}
 									</td>
 									<td className="text-center px-6 py-3 border-b">
-										{new Date(employee.updateTime).toLocaleDateString('fr-FR')}&nbsp;
-										{new Date(employee.updateTime).toLocaleTimeString('fr-FR')}
+										{new Date(customer.updateTime).toLocaleDateString('fr-FR')}&nbsp;
+										{new Date(customer.updateTime).toLocaleTimeString('fr-FR')}
 									</td>
 									<td
 										className="flex justify-center items-center px-6 py-3 border-b"
-										onClick={(event) => deleteEmploye(event, employee.employeeId)}>
+										onClick={(event) => deleteEmploye(event, customer.customerId)}>
 										<img src={trash} alt="Delete" className="cursor-pointer w-6 h-6 hover:scale-110 transition-transform" />
 									</td>
 								</tr>
@@ -163,7 +130,7 @@ const Employes = () => {
 
 				<tfoot>
 					<tr>
-						<td colSpan={9} className="px-6 py-4 border-t bg-gray-100">
+						<td colSpan={10} className="px-6 py-4 border-t bg-gray-100">
 							<div className="flex justify-center gap-4">
 								{page !== 1 ? (
 									<button
@@ -191,4 +158,4 @@ const Employes = () => {
 	);
 };
 
-export default Employes;
+export default Customer;

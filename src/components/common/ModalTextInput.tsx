@@ -1,6 +1,6 @@
-import { ModalTextInputProps } from "../../assets/models/ModalTextInput";
+import { ModalTextInputProps } from '../../assets/models/ModalTextInput';
 
-const ModalTextInput: React.FC<ModalTextInputProps> = ({name, type, placeholder, value, onChange, required}) => {
+const ModalTextInput: React.FC<ModalTextInputProps> = ({ name, type, placeholder, value, onChange, required }) => {
 	return (
 		<input
 			name={name}
