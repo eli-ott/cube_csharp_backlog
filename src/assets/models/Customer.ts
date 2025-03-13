@@ -56,6 +56,7 @@ export interface OrderLine {
 }
 
 export const customerFields = {
+	customerId: 'Id client',
 	supplierId: 'Id',
 	lastName: 'Nom de famille',
 	firstName: 'Prénom',

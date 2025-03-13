@@ -83,15 +83,78 @@ const Router = () => {
 								</DefaultLayout>
 							}
 						/>
-						<Route path="/fournisseurs/:id" element={<DefaultLayout><SupplierDetail /></DefaultLayout>} />
-						<Route path="/customers" element={<DefaultLayout><Client /></DefaultLayout>} />
-						<Route path="/customers/:id" element={<DefaultLayout><ClientDetail /></DefaultLayout>} />
-						<Route path="/commandes-client" element={<DefaultLayout><CommandesClient /></DefaultLayout>} />
-						<Route path="/commandes-client/:id" element={<DefaultLayout><CommandesClientDetail /></DefaultLayout>} />
-						<Route path="/commandes-fournisseur" element={<DefaultLayout><CommandesFournisseur /></DefaultLayout>} />
-						<Route path="/commandes-fournisseur/:id" element={<DefaultLayout><CommandesFournisseurDetail /></DefaultLayout>} />
-						<Route path="/produits" element={<DefaultLayout><Products /></DefaultLayout>} />
-						<Route path="/produits/:id" element={<DefaultLayout><ProductDetail /></DefaultLayout>} />
+						<Route
+							path="/fournisseurs/:id"
+							element={
+								<DefaultLayout>
+									<SupplierDetail />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/customers"
+							element={
+								<DefaultLayout>
+									<Client />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/customers/:id"
+							element={
+								<DefaultLayout>
+									<ClientDetail />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/commandes-client"
+							element={
+								<DefaultLayout>
+									<CommandesClient />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/commandes-client/:id"
+							element={
+								<DefaultLayout>
+									<CommandesClientDetail />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/commandes-fournisseur"
+							element={
+								<DefaultLayout>
+									<CommandesFournisseur />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/commandes-fournisseur/:id"
+							element={
+								<DefaultLayout>
+									<CommandesFournisseurDetail />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/produits"
+							element={
+								<DefaultLayout>
+									<Products />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/produits/:id"
+							element={
+								<DefaultLayout>
+									<ProductDetail />
+								</DefaultLayout>
+							}
+						/>
 					</>
 				) : (
 					<>

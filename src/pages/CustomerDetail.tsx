@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Customer, customerFields, uselessFields } from '../assets/models/Customer';
 import { GetCustomerById } from '../services/Customer';
+import { DeleteReview } from '../services/Review';
 
 const CustomerDetail = () => {
 	const { id } = useParams();
 	const [customer, setCustomer] = useState<Customer | null>(null);
+	const [refresh, setRefresh] = useState<number>(0);
 
 	useEffect(() => {
 		const fetchCustomer = async () => {
@@ -18,7 +20,13 @@ const CustomerDetail = () => {
 		};
 
 		fetchCustomer();
-	}, [id]);
+	}, [id, refresh]);
+
+	const deleteReview = async (userId: number, productId: number) => {
+		const response = await DeleteReview(userId, productId);
+
+		setRefresh(refresh + 1);
+	};
 
 	if (!customer) return <p className="text-center text-gray-500">Chargement...</p>;
 
@@ -34,11 +42,16 @@ const CustomerDetail = () => {
 						if ((typeof value === 'object' && value !== null) || uselessFields.includes(key)) return null;
 						return (
 							<div key={key} className="bg-gray-100 p-4 rounded-md shadow">
-                                {key}
-                                {/**  @ts-ignore */}
+								{/**  @ts-ignore */}
 								<p className="text-sm font-medium text-gray-500">{customerFields[key]}</p>
 
-								<p className="text-lg font-semibold">{value}</p>
+								{key === 'active' ? (
+									<p className="text-lg font-semibold">{value ? 'Oui' : 'Non'}</p>
+								) : key === 'deletionTime' || key === 'creationTime' || key === 'updateTime' ? (
+									<p className="text-lg font-semibold">{value ? new Date(value).toLocaleDateString('fr-FR') : 'Aucune date'}</p>
+								) : (
+									<p className="text-lg font-semibold">{value}</p>
+								)}
 							</div>
 						);
 					})}
@@ -52,7 +65,7 @@ const CustomerDetail = () => {
 					{customer.address &&
 						Object.entries(customer.address).map(([key, value]) => (
 							<div key={key} className="bg-gray-100 p-4 rounded-md shadow">
-                                {/** @ts-ignore */}
+								{/** @ts-ignore */}
 								<p className="text-sm font-medium text-gray-500">{customerFields[key]}</p>
 								<p className="text-lg font-semibold">{value}</p>
 							</div>
@@ -95,6 +108,13 @@ const CustomerDetail = () => {
 
 							<p className="text-sm font-medium text-gray-500 mt-2">Commentaire</p>
 							<p className="text-lg">{review.comment}</p>
+							<div className="flex flex-row justify-end items-center">
+								<button
+									onClick={() => deleteReview(review.userId, review.productId)}
+									className="bg-red-600 text-white p-2 rounded-lg cursor-pointer">
+									Supprimer
+								</button>
+							</div>
 						</div>
 					))
 				) : (

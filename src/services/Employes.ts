@@ -26,13 +26,21 @@ export const DeleteEmploye = async (employeeId: number) => {
 	}
 };
 
-export const GetEmployes = async (page: number): Promise<ApiReturn | null> => {
+export const GetEmployes = async (page: number, searchParams: any = null): Promise<ApiReturn | null> => {
 	try {
-		const employesRes = await fetch(apiUrl + `/employees?page=${page}`, {
+		let searchString = '';
+
+		if (searchParams) {
+			Object.keys(searchParams).forEach((param) => {
+				searchString += `&${param}=${searchParams[param]}`;
+			});
+		}
+
+		const employesRes = await fetch(apiUrl + `/employees?page=${page}${searchString}`, {
 			method: 'GET',
 			headers,
 		});
-		console.log(apiUrl);
+
 		if (!employesRes.ok) throw new Error('Une erreur est survenu');
 
 		const data = await employesRes.json();

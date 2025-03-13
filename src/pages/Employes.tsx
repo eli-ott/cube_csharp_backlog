@@ -7,6 +7,7 @@ import { useConfirm } from '../components/common/ConfirmProvider';
 import EmployeeDialog from '../components/ui/EmployeeDialog';
 import RoleDialog from '../components/ui/RoleDialog';
 import { DeleteEmploye, GetEmployes } from '../services/Employes';
+import SearchbarEmployee from '../components/ui/EmployeeSearchBar';
 
 const Employes = () => {
 	const navigate = useNavigate();
@@ -18,17 +19,18 @@ const Employes = () => {
 	const [maxPage, setMaxPage] = useState<number>(1);
 	const [employeeDialogOpen, setEmployeeDialogOpen] = useState<boolean>(false);
 	const [roleDialogOpen, setRoleDialogOpen] = useState<boolean>(false);
+	const [searchParams, setSearchParams] = useState();
 
 	useEffect(() => {
 		const fetchEmployes = async () => {
-			let data = await GetEmployes(page);
+			let data = await GetEmployes(page, searchParams);
 
 			setPage(data!.currentPage);
 			setMaxPage(data!.totalPages);
 			setEmployes(data!.items);
 		};
 		fetchEmployes();
-	}, [page, refresh]);
+	}, [page, refresh, searchParams]);
 
 	/**
 	 * Change the current page
@@ -70,6 +72,10 @@ const Employes = () => {
 		setRefresh(refresh + 1);
 	};
 
+	const onSearch = (searchParams: any) => {
+		setSearchParams(searchParams);
+	};
+
 	return (
 		<div className="overflow-x-auto p-4 flex flex-col gap-4">
 			<EmployeeDialog
@@ -101,6 +107,8 @@ const Employes = () => {
 					Ajouter un rôle
 				</button>
 			</div>
+
+			<SearchbarEmployee onSearch={(searchParams) => onSearch(searchParams)} />
 
 			<table className="min-w-full border-collapse rounded-lg overflow-hidden shadow-lg">
 				<thead>

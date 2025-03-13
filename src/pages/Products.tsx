@@ -7,6 +7,7 @@ import ProductDialog from '../components/ui/ProductDialog';
 import { useConfirm } from '../components/common/ConfirmProvider';
 import FamilyDialog from '../components/ui/FamilyDialog';
 import { useNavigate } from 'react-router-dom';
+import ProductSearchBar from '../components/ui/ProductSearchBar';
 
 const Products = () => {
 	const confirm = useConfirm();
@@ -19,10 +20,11 @@ const Products = () => {
 	const [page, setPage] = useState<number>(1);
 	const [refresh, setRefresh] = useState<number>(0);
 	const [maxPage, setMaxPage] = useState<number>(1);
+	const [searchParams, setSearchParams] = useState(null);
 
 	useEffect(() => {
 		const fetchProducts = async () => {
-			const data = await GetProducts(page);
+			const data = await GetProducts(page, searchParams);
 
 			setProducts(data!.items);
 			setMaxPage(data!.totalPages);
@@ -30,7 +32,7 @@ const Products = () => {
 		};
 
 		fetchProducts();
-	}, [refresh, page]);
+	}, [refresh, page, searchParams]);
 
 	/**
 	 * Change the current page
@@ -59,6 +61,10 @@ const Products = () => {
 
 		await DeleteProduct(productId);
 		setRefresh(refresh + 1);
+	};
+
+	const onSearch = (serachParams: any) => {
+		setSearchParams(serachParams);
 	};
 
 	if (loading) return <p>Loading...</p>;
@@ -96,6 +102,8 @@ const Products = () => {
 					Ajouter une famille
 				</button>
 			</div>
+
+			<ProductSearchBar onSearch={(e) => onSearch(e)} />
 
 			<table className="min-w-full border-collapse rounded-lg overflow-hidden shadow-lg">
 				<thead>

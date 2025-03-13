@@ -12,7 +12,6 @@ const headers: HeadersInit = {
 	Authorization: `Bearer ${token}`,
 };
 
-
 export const DeleteSupplier = async (supplierId: number) => {
 	try {
 		const deleteSupplierRes = await fetch(apiUrl + `/suppliers/${supplierId}`, {
@@ -26,9 +25,17 @@ export const DeleteSupplier = async (supplierId: number) => {
 	}
 };
 
-export const GetSuppliers = async (page: number): Promise<ApiReturn | null> => {
+export const GetSuppliers = async (page: number, searchParams: any): Promise<ApiReturn | null> => {
 	try {
-		const suppliersRes = await fetch(apiUrl + `/suppliers?page=${page}`, {
+		let searchString = '';
+
+		if (searchParams) {
+			Object.keys(searchParams).forEach((param) => {
+				searchString += `&${param}=${searchParams[param]}`;
+			});
+		}
+
+		const suppliersRes = await fetch(apiUrl + `/suppliers?page=${page}${searchString}`, {
 			method: 'GET',
 			headers,
 		});

@@ -1,17 +1,27 @@
 import { ApiReturn } from '../assets/models/Api';
 import { Product, ProductFormData } from '../assets/models/Product';
+import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
 
+const token = getTokenFromCookie();
 const headers: HeadersInit = {
 	'x-api-key': apiKey as string,
-	Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
+	Authorization: `Bearer ${token}`,
 };
 
-export const GetProducts = async (page: number): Promise<ApiReturn | null> => {
+export const GetProducts = async (page: number, searchParams: any): Promise<ApiReturn | null> => {
 	try {
-		const response = await fetch(apiUrl + `/products/?page=${page}`, {
+		let searchString = '';
+
+		if (searchParams) {
+			Object.keys(searchParams).forEach((param) => {
+				searchString += `&${param}=${searchParams[param]}`;
+			});
+		}
+
+		const response = await fetch(apiUrl + `/products/?page=${page}${searchString}`, {
 			method: 'GET',
 			headers,
 		});
@@ -48,7 +58,6 @@ export const AddProduct = async (product: FormData): Promise<Product | null> => 
 			headers,
 			body: product,
 		});
-		console.log(response, await response.json());
 		if (!response.ok) throw new Error('Erreur lors de la création du produit');
 
 		const data = await response.json();
