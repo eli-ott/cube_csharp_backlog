@@ -83,15 +83,15 @@ const Router = () => {
 								</DefaultLayout>
 							}
 						/>
-						<Route path="/fournisseurs/:id" element={<SupplierDetail />} />
-						<Route path="/customers" element={<Client />} />
-						<Route path="/customers/:id" element={<ClientDetail />} />
-						<Route path="/commandes-client" element={<CommandesClient />} />
-						<Route path="/commandes-client/:id" element={<CommandesClientDetail />} />
-						<Route path="/commandes-fournisseur" element={<CommandesFournisseur />} />
-						<Route path="/commandes-fournisseur/:id" element={<CommandesFournisseurDetail />} />
-						<Route path="/produits" element={<Products />} />
-						<Route path="/produits/:id" element={<ProductDetail />} />
+						<Route path="/fournisseurs/:id" element={<DefaultLayout><SupplierDetail /></DefaultLayout>} />
+						<Route path="/customers" element={<DefaultLayout><Client /></DefaultLayout>} />
+						<Route path="/customers/:id" element={<DefaultLayout><ClientDetail /></DefaultLayout>} />
+						<Route path="/commandes-client" element={<DefaultLayout><CommandesClient /></DefaultLayout>} />
+						<Route path="/commandes-client/:id" element={<DefaultLayout><CommandesClientDetail /></DefaultLayout>} />
+						<Route path="/commandes-fournisseur" element={<DefaultLayout><CommandesFournisseur /></DefaultLayout>} />
+						<Route path="/commandes-fournisseur/:id" element={<DefaultLayout><CommandesFournisseurDetail /></DefaultLayout>} />
+						<Route path="/produits" element={<DefaultLayout><Products /></DefaultLayout>} />
+						<Route path="/produits/:id" element={<DefaultLayout><ProductDetail /></DefaultLayout>} />
 					</>
 				) : (
 					<>
