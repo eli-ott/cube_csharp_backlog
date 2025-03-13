@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Employee, Role } from '../assets/models/Employes';
 import { GetEmployeById, SaveEmploye } from '../services/Employes';
-import { GetAllRoles } from '../services/Roles';
+import { GetRoles } from '../services/Roles';
 import { toast } from 'react-toastify';
 
 const EmployeeDetails: React.FC = () => {
@@ -34,7 +34,7 @@ const EmployeeDetails: React.FC = () => {
 	};
 
 	const fetchRoles = async () => {
-		setRoles((await GetAllRoles()) as Role[]);
+		setRoles((await GetRoles())?.items as Role[]);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

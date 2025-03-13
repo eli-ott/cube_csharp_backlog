@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RoleDialogProps } from '../../assets/models/Role';
-import { CreateRole } from '../../services/Roles';
+import { AddRole } from '../../services/Roles';
 import NewRoleForm from '../../features/NewRoleForm';
 import ModalTitle from '../common/ModalTitle';
 import { toast } from 'react-toastify';
@@ -17,9 +17,8 @@ const RoleDialog: React.FC<RoleDialogProps> = ({ isOpen, onClose }) => {
 		}
 
 		try {
-			const response = await CreateRole(roleName);
+			const response = await AddRole(roleName);
 
-			if (!response.ok) throw new Error('Erreur lors de la création du rôle');
 
 			toast.success('Rôle créer avec succès');
 			setRoleName('');

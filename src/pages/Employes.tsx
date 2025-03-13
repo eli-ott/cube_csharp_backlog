@@ -79,6 +79,7 @@ const Employes = () => {
 
 			<RoleDialog
 				isOpen={roleDialogOpen}
+				onRoleCreated={() => setRefresh(refresh + 1)}
 				onClose={() => {
 					setRoleDialogOpen(false);
 				}}></RoleDialog>

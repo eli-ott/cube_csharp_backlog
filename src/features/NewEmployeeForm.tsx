@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Role, RoleCreation } from '../assets/models/Employes';
-import { GetAllRoles } from '../services/Roles';
+import { GetRoles } from '../services/Roles';
 import { validatePassword } from '../utils/Password';
 import ModalButton from '../components/common/ModalButton';
 import ModalTextInput from '../components/common/ModalTextInput';
 import ModalSelect from '../components/common/ModalSelect';
 import { NewEmployeeFormProps } from '../assets/models/NewEmployeeForm';
+import { getRoles } from '@testing-library/dom';
 
 const NewEmployeeForm: React.FC<NewEmployeeFormProps> = ({ isOpen, handleSubmit, onClose, data, setData }) => {
 	const [roles, setRoles] = useState<RoleCreation[]>([]);
@@ -19,7 +20,7 @@ const NewEmployeeForm: React.FC<NewEmployeeFormProps> = ({ isOpen, handleSubmit,
 	}, [isOpen]);
 
 	const fetchRoles = async () => {
-		setRoles((await GetAllRoles()) as Role[]);
+		setRoles((await GetRoles())?.items as Role[]);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
