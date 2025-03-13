@@ -6,6 +6,7 @@ import { useConfirm } from '../components/common/ConfirmProvider';
 import { GetSuppliers, DeleteSupplier } from '../services/Fournisseurs';
 import { Supplier } from '../assets/models/Fournisseurs';
 import SupplierDialog from '../components/ui/SupplierDialog';
+import SupplierSearchBar from '../components/ui/SupplierSearchBar';
 
 const Fournisseurs = () => {
 	const navigate = useNavigate();
@@ -16,17 +17,18 @@ const Fournisseurs = () => {
 	const [page, setPage] = useState<number>(1);
 	const [maxPage, setMaxPage] = useState<number>(1);
 	const [supplierDialogOpen, setSupplierDialogOpen] = useState<boolean>(false);
+	const [searchParams, setSearchParams] = useState(null);
 
 	useEffect(() => {
 		const fetchEmployes = async () => {
-			let data = await GetSuppliers(page);
+			let data = await GetSuppliers(page, searchParams);
 
 			setPage(data!.currentPage);
 			setMaxPage(data!.totalPages);
 			setFournisseurs(data!.items);
 		};
 		fetchEmployes();
-	}, [page, refresh]);
+	}, [page, refresh, searchParams]);
 
 	/**
 	 * Change the current page
@@ -68,6 +70,10 @@ const Fournisseurs = () => {
 		setRefresh(refresh + 1);
 	};
 
+	const onSearch = (searchParams: any) => {
+		setSearchParams(searchParams);
+	}
+
 	return (
 		<div className="overflow-x-auto p-4 flex flex-col gap-4">
 			<SupplierDialog
@@ -87,6 +93,8 @@ const Fournisseurs = () => {
 					Ajouter un fournisseur
 				</button>
 			</div>
+
+			<SupplierSearchBar onSearch={(searchParams) => onSearch(searchParams)} />
 
 			<table className="min-w-full border-collapse rounded-lg overflow-hidden shadow-lg">
 				<thead>
@@ -108,7 +116,7 @@ const Fournisseurs = () => {
 					{fournisseurs.length === 0 ? (
 						<tr>
 							<td colSpan={9} className="text-center py-6 text-gray-500">
-								Aucun employé trouvé
+								Aucun fournisseur trouvé
 							</td>
 						</tr>
 					) : (
@@ -148,17 +156,17 @@ const Fournisseurs = () => {
 					<tr>
 						<td colSpan={10} className="px-6 py-4 border-t bg-gray-100">
 							<div className="flex justify-center gap-4">
-								{page !== 1 ? (
+								{maxPage && page !== 1 ? (
 									<button
 										onClick={() => changePage(-1)}
 										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
 										Precedent
 									</button>
 								) : null}
-								{page !== 1 ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{1}</span> : null}
+								{maxPage && page !== 1 ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{1}</span> : null}
 								<span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{page}</span>
-								{page !== maxPage ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{maxPage}</span> : null}
-								{page !== maxPage ? (
+								{maxPage && page !== maxPage ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{maxPage}</span> : null}
+								{maxPage && page !== maxPage ? (
 									<button
 										onClick={() => changePage(1)}
 										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">

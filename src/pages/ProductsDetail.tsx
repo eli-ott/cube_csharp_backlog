@@ -6,6 +6,7 @@ import { DeleteImage } from '../services/Images';
 import DiscountDialog from '../components/ui/DiscountDialog';
 import { DeleteDiscount } from '../services/Discount';
 import { toast } from 'react-toastify';
+import { DeleteReview } from '../services/Review';
 
 const ProductDetail = () => {
 	const { id } = useParams();
@@ -82,6 +83,12 @@ const ProductDetail = () => {
 
 	const deleteDiscount = async () => {
 		const response = await DeleteDiscount(product?.discount.discountId);
+
+		setRefresh(refresh + 1);
+	};
+
+	const deleteReview = async (userId: number) => {
+		const response = await DeleteReview(userId, product?.productId!);
 
 		setRefresh(refresh + 1);
 	};
@@ -260,7 +267,7 @@ const ProductDetail = () => {
 						product.images.map((image, index) => (
 							<div key={index} className="bg-gray-100 p-4 rounded-md shadow mb-4 w-1/3">
 								<img src={image.imageUrl} alt={image.imageId} />
-								<button className="text-red-500 cursor-pointer" onClick={() => handleDeleteImage(image.imageId)}>
+								<button className="bg-red-600 text-white p-2 rounded-lg cursor-pointer" onClick={() => handleDeleteImage(image.imageId)}>
 									Supprimer
 								</button>
 							</div>
@@ -323,6 +330,11 @@ const ProductDetail = () => {
 							<p className="text-lg font-semibold">{review.rating}/5</p>
 							<p className="text-sm font-medium text-gray-500 mt-2">Comment</p>
 							<p className="text-lg font-semibold">{review.comment}</p>
+							<div className="flex flex-row justify-end">
+								<button onClick={() => deleteReview(review.userId)} className="bg-red-600 text-white p-2 rounded-lg cursor-pointer">
+									Supprimer
+								</button>
+							</div>
 						</div>
 					))
 				) : (

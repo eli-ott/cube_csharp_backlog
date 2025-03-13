@@ -1,4 +1,3 @@
-import { NewDiscount } from '../assets/models/Discount';
 import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -10,32 +9,20 @@ const headers: HeadersInit = {
 	Authorization: `Bearer ${token}`,
 };
 
-export const CreateDiscount = async (discount: NewDiscount) => {
+export const DeleteReview = async (userId: number, productId: number) => {
 	try {
-		const response = await fetch(apiUrl + '/discounts', {
+		const response = await fetch(apiUrl + '/reviews/delete', {
 			method: 'POST',
 			headers: {
 				...headers,
 				'Content-type': 'application/json',
 			},
-			body: JSON.stringify(discount),
+			body: JSON.stringify({ userId, productId }),
 		});
 
 		const data = await response.json();
 	} catch (e) {
 		console.error(e);
-	}
-};
-
-export const DeleteDiscount = async (idDiscount: number) => {
-	try {
-		const response = await fetch(apiUrl + `/discounts/${idDiscount}`, {
-			method: 'DELETE',
-			headers: {
-				...headers,
-			},
-		});
-	} catch (e) {
-		console.error(e);
+		return null;
 	}
 };

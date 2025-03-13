@@ -44,12 +44,6 @@ const LoginForm = () => {
 					<SubmitButton text="Se connecter" onSubmit={handleLogin} />
 				</div>
 			</form>
-			<p className="text-sm w-full text-left text-gray-600">
-				Vous n'avez pas encore de compte ?{' '}
-				<button type="button" onClick={() => navigate('/register')} className="text-gray-600 font-semibold hover:underline cursor-pointer">
-					Inscrivez-vous !
-				</button>
-			</p>
 		</div>
 	);
 };

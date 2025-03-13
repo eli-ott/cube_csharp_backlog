@@ -1,12 +1,14 @@
 import { ApiReturn } from '../assets/models/Api';
 import { CommandeClient } from '../assets/models/CommandeClient';
+import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
 
+const token = getTokenFromCookie();
 const headers: HeadersInit = {
 	'x-api-key': apiKey as string,
-	Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
+	Authorization: `Bearer ${token}`,
 };
 
 export const GetCommandesClient = async (): Promise<ApiReturn | null> => {

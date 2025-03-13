@@ -24,7 +24,6 @@ const Products = () => {
 
 	useEffect(() => {
 		const fetchProducts = async () => {
-			console.log(searchParams);
 			const data = await GetProducts(page, searchParams);
 
 			setProducts(data!.items);
