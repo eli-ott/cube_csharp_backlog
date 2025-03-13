@@ -19,8 +19,6 @@ export const CreateDiscount = async (discount: NewDiscount) => {
 			body: JSON.stringify(discount),
 		});
 
-		console.log(response, await response.json());
-
 		const data = await response.json();
 	} catch (e) {
 		console.error(e);

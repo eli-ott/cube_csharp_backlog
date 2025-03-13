@@ -69,8 +69,6 @@ const ProductDetail = () => {
 		productData.append('supplierId', editableProduct!.supplier.supplierId.toString());
 		productData.append('familyId', editableProduct!.family.familyId.toString());
 
-		console.log(productData.get('images'));
-
 		const data = await UpdateProduct(productData);
 		setRefresh(refresh + 1);
 		setIsEditing(false);

@@ -48,7 +48,6 @@ export const AddProduct = async (product: FormData): Promise<Product | null> => 
 			headers,
 			body: product,
 		});
-		console.log(response, await response.json());
 		if (!response.ok) throw new Error('Erreur lors de la création du produit');
 
 		const data = await response.json();
