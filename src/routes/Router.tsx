@@ -14,47 +14,91 @@ import CommandesFournisseur from '../pages/CommandesFournisseur';
 import Products from '../pages/Products';
 import ProductDetail from '../pages/ProductsDetail';
 import Login from '../pages/Login';
-import Register from '../pages/Register';
-import RegisterConfirmation from '../pages/RegisterConfirmation';
 import { useAuth } from '../hooks/AuthContext';
 import DefaultLayout from '../components/pages_layout/DefaultLayout';
 import Family from '../pages/Family';
 import Roles from '../pages/Roles';
 
-
-
-
-  
 const Router = () => {
-    const { isLoggedIn } = useAuth();
+	const { isLoggedIn } = useAuth();
+
 	return (
 		<BrowserRouter>
 			<Routes>
-                {isLoggedIn ? 
-                <>
-				<Route path="/" element={<DefaultLayout><Home /></DefaultLayout>} />
-				<Route path="/choix-commandes" element={<DefaultLayout><ChoixCommandes /></DefaultLayout>} />
-				<Route path="/employes" element={<DefaultLayout><Employes /></DefaultLayout>} />
-				<Route path="/employes/:id" element={<DefaultLayout><EmployeeDetails/></DefaultLayout>} />
-				<Route path="/fournisseurs" element={<DefaultLayout><Fournisseurs/></DefaultLayout>} /> 
-                <Route path="/family" element={<DefaultLayout><Family/></DefaultLayout>} /> 
-                <Route path="/roles" element={<DefaultLayout><Roles/></DefaultLayout>} /> 
-
-
-                </>
-                :                 
-                <Route path='/login' element={<Login/>}/>}
-                
-                    
-				<Route path="/fournisseurs/:id" element={<SupplierDetail />} />
-				<Route path="/customers" element={<Client />} />
-				<Route path="/customers/:id" element={<ClientDetail />} />
-				<Route path="/commandes-client" element={<CommandesClient />} />
-				<Route path="/commandes-client/:id" element={<CommandesClientDetail />} />
-				<Route path="/commandes-fournisseur" element={<CommandesFournisseur />} />
-				<Route path="/commandes-fournisseur/:id" element={<CommandesFournisseurDetail />} />
-				<Route path="/produits" element={<Products />} />
-				<Route path="/produits/:id" element={<ProductDetail />} />
+				{isLoggedIn ? (
+					<>
+						<Route
+							path="/"
+							element={
+								<DefaultLayout>
+									<Home />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/choix-commandes"
+							element={
+								<DefaultLayout>
+									<ChoixCommandes />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/employes"
+							element={
+								<DefaultLayout>
+									<Employes />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/employes/:id"
+							element={
+								<DefaultLayout>
+									<EmployeeDetails />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/fournisseurs"
+							element={
+								<DefaultLayout>
+									<Fournisseurs />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/family"
+							element={
+								<DefaultLayout>
+									<Family />
+								</DefaultLayout>
+							}
+						/>
+						<Route
+							path="/roles"
+							element={
+								<DefaultLayout>
+									<Roles />
+								</DefaultLayout>
+							}
+						/>
+						<Route path="/fournisseurs/:id" element={<SupplierDetail />} />
+						<Route path="/customers" element={<Client />} />
+						<Route path="/customers/:id" element={<ClientDetail />} />
+						<Route path="/commandes-client" element={<CommandesClient />} />
+						<Route path="/commandes-client/:id" element={<CommandesClientDetail />} />
+						<Route path="/commandes-fournisseur" element={<CommandesFournisseur />} />
+						<Route path="/commandes-fournisseur/:id" element={<CommandesFournisseurDetail />} />
+						<Route path="/produits" element={<Products />} />
+						<Route path="/produits/:id" element={<ProductDetail />} />
+					</>
+				) : (
+					<>
+						<Route path="/" element={<Login />} />
+						<Route path="/login" element={<Login />} />
+					</>
+				)}
 			</Routes>
 		</BrowserRouter>
 	);

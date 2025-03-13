@@ -19,6 +19,7 @@ const LoginForm = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);   
+    console.log(email, password);
     if (await login({ email, password })) {
       setIsLoggedIn(true);
       navigate("/");

@@ -71,7 +71,13 @@ const Products = () => {
 				onClose={() => setProductDialogOpen(false)}
 				onProductCreated={() => setRefresh(refresh + 1)}
 			/>
-			<FamilyDialog isOpen={familyDialogOpen} onClose={() => setFamilyDialogOpen(false)} />
+			<FamilyDialog
+				isOpen={familyDialogOpen}
+				onClose={() => setFamilyDialogOpen(false)}
+				onFamilyCreated={() => {
+					setRefresh(refresh + 1);
+				}}
+			/>
 
 			<div className="actions flex flex-row gap-4">
 				<button
