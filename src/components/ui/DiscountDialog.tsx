@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { DiscountDialogProps, NewDiscount } from '../../assets/models/Discount';
 import { CreateDiscount } from '../../services/Discount';
 import NewDiscountForm from '../../features/NewDiscountForm';
+import { notify } from '../../utils/notify';
 
 const DiscountDialog: React.FC<DiscountDialogProps> = ({ productId, isOpen, onClose, onDiscountCreated }) => {
 	const [formData, setFormData] = useState<NewDiscount>({
@@ -22,30 +23,38 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({ productId, isOpen, onCl
 		e.preventDefault();
 
 		if (Object.values(formData).some((value) => !value)) {
-			toast.warning('Veuillez remplir tous les champs.');
+			notify('Veuillez remplir tous les champs.', 'warning');
 			return;
 		}
 
-		try {
-			if (formData.value! < 0 || formData.value! > 100) {
-				toast.warning('Le promotion doit être entre 0 et 100%');
-				return;
-			}
-			const response = await CreateDiscount({ ...formData, productId });
-
-			setFormData({
-				name: undefined,
-				value: undefined,
-				startDate: undefined,
-				endDate: undefined,
-			});
-
-			onDiscountCreated();
-			onClose();
-		} catch (error) {
-			console.error("Erreur lors de la création de l'employé:", error);
-			toast.error("Une erreur s'est produite.");
+		if (formData.value! < 0 || formData.value! > 100) {
+			notify('Le promotion doit être entre 0 et 100%', 'warning');
+			return;
 		}
+		if (new Date(formData.endDate!).getTime() < new Date().getTime()) {
+			notify('La date de fin doit être supérieur à la date du jour', 'warning');
+			return;
+		}
+		if (new Date(formData.startDate!).getTime() < new Date().getTime()) {
+			notify('La date de début doit être supérieur à la date du jour', 'warning');
+			return;
+		}
+		if (new Date(formData.startDate!).getTime() > new Date(formData.endDate!).getTime()) {
+			notify('La date de début doit être antérieur à la date de fin', 'warning');
+			return;
+		}
+
+		await CreateDiscount({ ...formData, productId });
+
+		setFormData({
+			name: undefined,
+			value: undefined,
+			startDate: undefined,
+			endDate: undefined,
+		});
+
+		onDiscountCreated();
+		onClose();
 	};
 
 	if (!isOpen) return null;

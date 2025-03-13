@@ -11,19 +11,15 @@ const CustomerDetail = () => {
 
 	useEffect(() => {
 		const fetchCustomer = async () => {
-			try {
-				const response = await GetCustomerById(parseInt(id!));
-				setCustomer(response);
-			} catch (error) {
-				console.error('Error fetching customer:', error);
-			}
+			const response = await GetCustomerById(parseInt(id!));
+			setCustomer(response);
 		};
 
 		fetchCustomer();
 	}, [id, refresh]);
 
 	const deleteReview = async (userId: number, productId: number) => {
-		const response = await DeleteReview(userId, productId);
+		await DeleteReview(userId, productId);
 
 		setRefresh(refresh + 1);
 	};

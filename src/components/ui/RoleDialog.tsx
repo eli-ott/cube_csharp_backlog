@@ -3,30 +3,25 @@ import { RoleDialogProps } from '../../assets/models/Role';
 import { AddRole } from '../../services/Roles';
 import NewRoleForm from '../../features/NewRoleForm';
 import ModalTitle from '../common/ModalTitle';
-import { toast } from 'react-toastify';
+import { notify } from '../../utils/notify';
 
-const RoleDialog: React.FC<RoleDialogProps> = ({ isOpen, onClose }) => {
+const RoleDialog: React.FC<RoleDialogProps> = ({ isOpen, onClose, onRoleCreated }) => {
 	const [roleName, setRoleName] = useState('');
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
 		if (!roleName.trim()) {
-			toast.error('Le nom du rôle est requis.');
+			notify('Le nom du rôle est requis.', 'error');
 			return;
 		}
 
-		try {
-			const response = await AddRole(roleName);
+		await AddRole(roleName);
 
-
-			toast.success('Rôle créer avec succès');
-			setRoleName('');
-			onClose();
-		} catch (error) {
-			console.error('Erreur:', error);
-			toast.error("Une erreur s'est produite.");
-		}
+		notify('Rôle créer avec succès', 'success');
+		setRoleName('');
+		onRoleCreated();
+		onClose();
 	};
 
 	if (!isOpen) return null;

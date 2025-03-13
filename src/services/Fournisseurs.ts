@@ -2,6 +2,7 @@ import { Supplier } from './../assets/models/Fournisseurs';
 import { ApiReturn } from '../assets/models/Api';
 import { NewSupplierFormData } from '../assets/models/Fournisseurs';
 import { getTokenFromCookie } from './authentification';
+import { notify } from '../utils/notify';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -22,6 +23,7 @@ export const DeleteSupplier = async (supplierId: number) => {
 		if (!deleteSupplierRes.ok) throw new Error('Une erreur est survenue');
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 	}
 };
 
@@ -45,6 +47,7 @@ export const GetSuppliers = async (page: number, searchParams: any): Promise<Api
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -61,6 +64,7 @@ export const GetAllSuppliers = async (): Promise<ApiReturn | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -77,6 +81,7 @@ export const GetSupplierById = async (id: number): Promise<Supplier | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -93,6 +98,7 @@ export const SaveSupplier = async (supplier: Supplier, id: number): Promise<bool
 
 		return response.ok;
 	} catch (err) {
+		notify(err as string, 'error');
 		return false;
 	}
 };

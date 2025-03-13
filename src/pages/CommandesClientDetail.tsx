@@ -5,6 +5,7 @@ import { CommandeClient } from '../assets/models/CommandeClient';
 import { Status } from '../assets/models/Customer';
 import { GetStatus } from '../services/Status';
 import ModalSelect from '../components/common/ModalSelect';
+import { notify } from '../utils/notify';
 
 const CommandeClientDetail = () => {
 	const { id } = useParams();
@@ -35,6 +36,15 @@ const CommandeClientDetail = () => {
 	};
 
 	const handleSave = async () => {
+		if (!editableOrder.deliveryDate || !editableOrder.statusId) {
+			notify('Tous les champs sont nécessaires', 'warning');
+			return;
+		}
+		if (editableOrder.deliveryDate && new Date(editableOrder.deliveryDate).getTime() < new Date().getTime()) {
+			notify('La date de livraison doit être postérieur à la date du jour', 'warning');
+			return;
+		}
+
 		const updatedOrder: CommandeClient = {
 			...order!,
 			deliveryDate: editableOrder.deliveryDate,
@@ -50,7 +60,7 @@ const CommandeClientDetail = () => {
 	};
 
 	if (loading) return <p>Chargement...</p>;
-	if (!order) return <p>Order not found</p>;
+	if (!order) return <p>Commande introuvable</p>;
 
 	return (
 		<div className="p-6 bg-white shadow-lg rounded-lg max-w-4xl mx-auto">
@@ -72,7 +82,6 @@ const CommandeClientDetail = () => {
 								name="deliveryDate"
 								value={new Date(editableOrder.deliveryDate).toISOString().substring(0, 10)}
 								onChange={handleChange}
-								
 								className="w-full p-2 border rounded-md"
 							/>
 						) : (

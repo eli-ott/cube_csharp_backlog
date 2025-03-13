@@ -15,8 +15,8 @@ const SubmitButton: React.FC<ISubmitButton> = ({
 }) => {
   return (
     <button
-      className={`gradient-button flex items-center justify-between p-2 w-48 h-10 sm:h-12 
-                 rounded-xl text-[#f8f4e3] text-base sm:text-lg font-semibold cursor-pointer 
+      className={`gradient-button bg-[#BF695F] flex items-center justify-between p-2 w-48 h-10 sm:h-12 
+                 rounded-xl text-white text-base sm:text-lg font-semibold cursor-pointer 
                  ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
       onClick={disabled ? undefined : onSubmit} // Empêche l'exécution si désactivé
       disabled={disabled}

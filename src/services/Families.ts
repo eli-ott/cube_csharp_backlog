@@ -1,4 +1,5 @@
 import { ApiReturn } from '../assets/models/Api';
+import { notify } from '../utils/notify';
 import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -16,11 +17,13 @@ export const GetFamilies = async (): Promise<ApiReturn | null> => {
 			method: 'GET',
 			headers,
 		});
+		if (!response.ok) throw new Error('Une erreur est survenue');
 
 		const data = await response.json();
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -41,6 +44,7 @@ export const AddFamilies = async (name: string) => {
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -55,11 +59,13 @@ export const UpdateFamilies = async (id: number, name: string) => {
 			},
 			body: JSON.stringify({ name }),
 		});
+		if (!response.ok) throw new Error('Une erreur est survenue');
 
 		const data = await response.json();
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -70,11 +76,13 @@ export const DeleteFamilies = async (id: number) => {
 			method: 'DELETE',
 			headers,
 		});
+		if (!response.ok) throw new Error('Une erreur est survenue');
 
 		const data = await response.json();
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };

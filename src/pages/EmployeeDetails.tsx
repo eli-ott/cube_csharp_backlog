@@ -3,10 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Employee, Role } from '../assets/models/Employes';
 import { GetEmployeById, SaveEmploye } from '../services/Employes';
 import { GetRoles } from '../services/Roles';
-import { toast } from 'react-toastify';
+import { notify } from '../utils/notify';
 
 const EmployeeDetails: React.FC = () => {
-
 	const { id } = useParams<{ id: string }>(); // Get employee ID from URL
 	const navigate = useNavigate();
 	const [employee, setEmployee] = useState<Employee | null>(null);
@@ -46,7 +45,7 @@ const EmployeeDetails: React.FC = () => {
 
 	const handleSave = async () => {
 		if (!employee || !id) {
-			toast.error('Employée ou ID introuvable');
+			notify('Employée ou ID introuvable', 'warning');
 			return;
 		}
 
@@ -57,7 +56,7 @@ const EmployeeDetails: React.FC = () => {
 			return;
 		}
 
-		toast.success('Employee updated successfully!');
+		notify('Employee updated successfully!', 'success');
 		setIsEditing(false);
 		fetchEmployee();
 	};

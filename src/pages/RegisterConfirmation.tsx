@@ -8,14 +8,14 @@ const RegisterConfirmation = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { email, guid } = useParams<{ email: string; guid: string }>();
   const navigate = useNavigate();
-  const hasConfirmed = useRef(false); // ✅ Empêcher l'exécution multiple
+  const hasConfirmed = useRef(false);
 
   useEffect(() => {
     const confirmUser = async () => {
       if (email && guid && !hasConfirmed.current) {
         try {
           setIsLoading(true);
-          hasConfirmed.current = true; // ✅ Empêche la double exécution
+          hasConfirmed.current = true;
           const response = await confirmAccount({ email, guid });
 
           if (response) {

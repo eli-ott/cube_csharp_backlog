@@ -1,6 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { IConfirmAccount, IRegister, ILogin } from '../assets/models/authentificationModel';
 import { API_KEY, API_URL } from '../utils/env';
+import { notify } from '../utils/notify';
 
 export const register = async ({
 	lastName,
@@ -39,10 +40,12 @@ export const register = async ({
 			headers: headers,
 			body: JSON.stringify(registerData),
 		});
-
 		if (!response.ok) throw new Error("Erreur lors de l'ajout");
+
 		return response.ok;
 	} catch (error) {
+		console.error(error);
+		notify(error as string, 'error');
 		return false;
 	}
 };
@@ -74,6 +77,7 @@ export const login = async ({ email, password }: ILogin): Promise<boolean> => {
 		}
 	} catch (error) {
 		console.error(error);
+		notify(error as string, 'error');
 		return false;
 	}
 };
@@ -92,6 +96,8 @@ export const confirmAccount = async ({ email, guid }: IConfirmAccount): Promise<
 		if (!response.ok) throw new Error('Erreur lors de la confirmation');
 		return response.ok;
 	} catch (error) {
+		console.error(error);
+		notify(error as string, 'error');
 		return false;
 	}
 };
@@ -119,4 +125,49 @@ export const logOut = () => {
 	document.cookie = 'token=; path=/; max-age=0;';
 	sessionStorage.clear();
 	localStorage.removeItem('customerInfo');
+};
+
+export const sendResetPasswordMail = async (email: string): Promise<boolean> => {
+	const headers: HeadersInit = {
+		'Content-Type': 'application/json',
+		'x-api-key': API_KEY,
+	};
+
+	try {
+		const response = await fetch(`${API_URL}/employees/request-password-reset`, {
+			method: 'POST',
+			headers,
+			body: JSON.stringify({ email: email }),
+		});
+		console.log(response, await response.json());
+		if (!response.ok) throw new Error('Erreur lors de la demande.');
+
+		return true;
+	} catch (error) {
+		console.error(error);
+		notify(error as string, 'error');
+		return false;
+	}
+};
+
+export const validatePasswordReset = async (guid: string, newPassword: string): Promise<boolean> => {
+	try {
+		const headers: HeadersInit = {
+			'Content-Type': 'application/json',
+			'x-api-key': API_KEY,
+		};
+
+		const response = await fetch(`${API_URL}/employees/reset-password/${guid}`, {
+			method: 'POST',
+			headers,
+			body: JSON.stringify({ password: newPassword }),
+		});
+
+		if (!response.ok) throw new Error('Erreur lors de la validation du nouveau mot de passe.');
+		return true;
+	} catch (error) {
+		console.error(error);
+		notify(error as string, 'error');
+		return false;
+	}
 };

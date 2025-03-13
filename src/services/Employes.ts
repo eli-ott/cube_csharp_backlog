@@ -3,6 +3,7 @@ import { ApiReturn } from '../assets/models/Api';
 import { Employee } from '../assets/models/Employes';
 import { NewEmployeeFormData } from '../assets/models/NewEmployeeForm';
 import { getTokenFromCookie } from './authentification';
+import { notify } from '../utils/notify';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -23,6 +24,7 @@ export const DeleteEmploye = async (employeeId: number) => {
 		if (!deleteEmployeRes.ok) throw new Error('Une erreur est survenue');
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 	}
 };
 
@@ -47,6 +49,7 @@ export const GetEmployes = async (page: number, searchParams: any = null): Promi
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -63,6 +66,7 @@ export const GetEmployeById = async (id: number): Promise<Employee | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -85,6 +89,7 @@ export const SaveEmploye = async (employee: Employee, id: number): Promise<boole
 
 		return response.ok;
 	} catch (err) {
+		notify(err as string, 'error');
 		return false;
 	}
 };

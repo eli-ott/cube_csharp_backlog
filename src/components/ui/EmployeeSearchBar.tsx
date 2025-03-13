@@ -29,7 +29,7 @@ const SearchbarEmployee: React.FC<{ onSearch: (searchParams: any) => void }> = (
 						setDeleted(e.target.checked);
 					}}
 				/>
-				<label htmlFor="deleted">Elements supprimés</label>
+				<label htmlFor="deleted">Employés supprimés</label>
 			</div>
 			<input
 				type="text"

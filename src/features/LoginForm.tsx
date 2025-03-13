@@ -20,13 +20,22 @@ const LoginForm = () => {
 		e.preventDefault();
 		setIsLoading(true);
 
+		const mailReg =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
+
+		if (!mailReg.test(email)) {
+			notify("Le mail n'est pas valide", 'warning');
+			return;
+		}
+
 		if (await login({ email, password })) {
 			setIsLoggedIn(true);
-			navigate('/');
 			notify('Vous nous aviez manqué !', 'success');
+			navigate('/');
 		} else {
 			notify('Adresse mail ou mot de passe incorrect.', 'error');
 		}
+
 		setIsLoading(false);
 	};
 	return (
@@ -40,7 +49,9 @@ const LoginForm = () => {
 				<MailInput placeholder="Adresse mail" typed={email} onTyping={setEmail} />
 				<PasswordInput placeholder="Mot de passe" typed={password} onTyping={setPassword} />
 				<div className="w-full flex flex-col items-end justify-center">
-					<span className="text-sm md:text-md lg:text-lg cursor-pointer hover:underline mb-10">Mot de passe oublié ?</span>
+					<span className="text-sm md:text-md lg:text-lg cursor-pointer hover:underline mb-10" onClick={() => navigate('/forgot-password')}>
+						Mot de passe oublié ?
+					</span>
 					<SubmitButton text="Se connecter" onSubmit={handleLogin} />
 				</div>
 			</form>

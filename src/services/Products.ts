@@ -1,5 +1,6 @@
 import { ApiReturn } from '../assets/models/Api';
 import { Product, ProductFormData } from '../assets/models/Product';
+import { notify } from '../utils/notify';
 import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -31,6 +32,7 @@ export const GetProducts = async (page: number, searchParams: any): Promise<ApiR
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -47,6 +49,7 @@ export const GetProductById = async (id: number): Promise<Product | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -64,6 +67,7 @@ export const AddProduct = async (product: FormData): Promise<Product | null> => 
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -81,6 +85,7 @@ export const UpdateProduct = async (product: FormData): Promise<Product | null> 
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -94,6 +99,7 @@ export const DeleteProduct = async (id: number) => {
 		if (!response.ok) throw new Error('Erreur lors de la suppression du produit');
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 	}
 };
 
@@ -106,6 +112,7 @@ export const ToggleBio = async (id: number) => {
 		if (!response.ok) throw new Error('Erreur lors de la modification du produit');
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 	}
 };
 
@@ -118,5 +125,6 @@ export const ToggleRestock = async (id: number) => {
 		if (!response.ok) throw new Error('Erreur lors de la modification du produit');
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 	}
 };
