@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../services/authentification";
 import { notify } from "../utils/notify";
 import LoadingDisplay from "../components/ui/LoadingDisplay";
+import { useAuth } from "../hooks/AuthContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -13,17 +14,19 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false); 
   const navigate = useNavigate();
 
+  const {setIsLoggedIn} = useAuth();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    const isLoggedIn = await login({ email, password });
-    setIsLoading(false);
-    if (isLoggedIn) {
+    setIsLoading(true);   
+    if (await login({ email, password })) {
+      setIsLoggedIn(true);
       navigate("/");
       notify("Vous nous aviez manqué !", "success");
     } else {
       notify("Adresse mail ou mot de passe incorrect.", "error");
     }
+    setIsLoading(false);
   };
   return (
     <div className="flex flex-col items-center justify-start gap-8 w-full max-w-sm md:max-w-md lg:max-w-xl h-1/2 text-[#333333] p-6">

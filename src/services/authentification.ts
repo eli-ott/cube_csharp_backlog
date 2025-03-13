@@ -60,7 +60,11 @@ export const login = async ({ email, password }: ILogin): Promise<boolean> => {
       "x-api-key": API_KEY,
     };
 
-    const response = await fetch(`${BASE_URL}/customers/login`, {
+    console.log(email
+      ,password
+    )
+
+    const response = await fetch(`${BASE_URL}/employees/login`, {
       method: "POST",
       headers: headers,
       body: JSON.stringify({ email, password }),
