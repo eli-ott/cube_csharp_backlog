@@ -7,6 +7,8 @@ import { useConfirm } from '../components/common/ConfirmProvider';
 import EmployeeDialog from '../components/ui/EmployeeDialog';
 import RoleDialog from '../components/ui/RoleDialog';
 import { DeleteEmploye, GetEmployes } from '../services/Employes';
+import SearchbarEmployee from '../components/ui/EmployeeSearchBar';
+
 
 const Employes = () => {
 	const navigate = useNavigate();
@@ -101,6 +103,9 @@ const Employes = () => {
 					Ajouter un rôle
 				</button>
 			</div>
+
+				<SearchbarEmployee/>
+
 
 			<table className="min-w-full border-collapse rounded-lg overflow-hidden shadow-lg">
 				<thead>

@@ -26,7 +26,7 @@ export const DeleteEmploye = async (employeeId: number) => {
 	}
 };
 
-export const GetEmployes = async (page: number): Promise<ApiReturn | null> => {
+export const GetEmployes = async (page: number, ): Promise<ApiReturn | null> => {
 	try {
 		const employesRes = await fetch(apiUrl + `/employees?page=${page}`, {
 			method: 'GET',
