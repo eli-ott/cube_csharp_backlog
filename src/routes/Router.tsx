@@ -7,20 +7,30 @@ import Fournisseurs from '../pages/Fournisseurs';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import RegisterConfirmation from '../pages/RegisterConfirmation';
+import { useAuth } from '../hooks/AuthContext';
+import DefaultLayout from '../components/pages_layout/DefaultLayout';
 
 
+
+
+  
 const Router = () => {
+    const { isLoggedIn } = useAuth();
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/choix-commandes' element={<ChoixCommandes/>}/>
-                <Route path='/employes' element={<Employes/>}/>
-                <Route path="/employes/:id" element={<EmployeeDetails />} />
-                <Route path="/fournisseurs" element={<Fournisseurs />} />
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/register' element={<Register/>}/>
-                <Route path='/registerConfirmation' element={<RegisterConfirmation/>}/>
+                {isLoggedIn ? 
+                <>
+                <Route path='/' element={<DefaultLayout><Home/></DefaultLayout>}/>
+                <Route path='/choix-commandes' element={<DefaultLayout><ChoixCommandes/></DefaultLayout>}/>
+                <Route path='/employes' element={<DefaultLayout><Employes/></DefaultLayout>}/>
+                <Route path="/employes/:id" element={<DefaultLayout><EmployeeDetails/></DefaultLayout>} />
+                <Route path="/fournisseurs" element={<DefaultLayout><Fournisseurs/></DefaultLayout>} /> 
+                </>
+                :                 
+                <Route path='/login' element={<Login/>}/>}
+                
+                    
             </Routes>
         </BrowserRouter>
     );
