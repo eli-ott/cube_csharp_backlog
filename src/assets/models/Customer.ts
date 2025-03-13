@@ -43,7 +43,7 @@ export interface Order {
 export interface Status {
 	statusId: number;
 	name: string;
-	deletionTime: string;
+	deletionTime?: string;
 }
 
 export interface OrderLine {
