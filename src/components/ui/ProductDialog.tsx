@@ -6,6 +6,7 @@ import { GetAllSuppliers } from '../../services/Fournisseurs';
 import { GetFamilies } from '../../services/Families';
 import ModalSelect from '../common/ModalSelect';
 import ModalButton from '../common/ModalButton';
+import { notify } from '../../utils/notify';
 
 const ProductDialog: React.FC<ProductDialogProps> = ({ isOpen, onClose, onProductCreated }) => {
 	const [formData, setFormData] = useState<ProductFormData>({
@@ -52,13 +53,42 @@ const ProductDialog: React.FC<ProductDialogProps> = ({ isOpen, onClose, onProduc
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 
+		if (!formData.unitPrice && !formData.boxPrice) {
+			notify('Un prix doit être renseigné', 'warning');
+			return;
+		}
+		if (formData.autoRestock && !formData.autoRestockTreshold) {
+			notify('Une quantité limite pour le restock doit être renseigné', 'warning');
+			return;
+		}
+		if(formData.autoRestockTreshold && !formData.autoRestock) {
+			notify("Le restock automatique doit être activé si une quantité limite est défini", 'warning');
+			return;
+		}
+		if (formData.quantity && formData.quantity <= 0) {
+			notify('La quantité doit être supérieur à 0', 'warning');
+			return;
+		}
+		if (formData.boxPrice && formData.boxPrice <= 0) {
+			notify('La prix par carton doit être supérieur à 0', 'warning');
+			return;
+		}
+		if (formData.unitPrice && formData.unitPrice <= 0) {
+			notify('La prix unitaire doit être supérieur à 0', 'warning');
+			return;
+		}
+		if (formData.year && formData.year > new Date().getFullYear()) {
+			notify("L'année du vin ne peut pas être postérieur à l'année actuelle", 'warning');
+			return;
+		}
+
 		const productData = new FormData();
 		Object.keys(formData).forEach((key) => {
 			//@ts-ignore
 			if (key === 'images' && formData.images && formData.images.length > 0) {
 				formData.images.forEach((file: File) => {
 					if (file.size > 5000000) {
-						alert('Un des fichier est trop volumineux');
+						notify('Un des fichier est trop volumineux', 'error');
 						return;
 					}
 
@@ -155,7 +185,7 @@ const ProductDialog: React.FC<ProductDialogProps> = ({ isOpen, onClose, onProduc
 						value={formData.unitPrice}
 						onChange={handleChange}
 						className="w-full p-2 border rounded-md"
-						required={formData.boxPrice ? true : false}
+						required={formData.boxPrice ? false : true}
 					/>
 
 					<input

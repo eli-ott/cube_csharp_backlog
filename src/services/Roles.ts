@@ -1,6 +1,7 @@
 import { Role } from '../assets/models/Employes';
 import { ApiReturn } from '../assets/models/Api';
 import { getTokenFromCookie } from './authentification';
+import { notify } from '../utils/notify';
 
 const apiUrl = process.env.REACT_APP_API_URL!;
 const apiKey = process.env.REACT_APP_API_KEY!;
@@ -24,6 +25,7 @@ export const GetRoles = async (): Promise<ApiReturn | null> => {
 		return data; // Retourne l'objet ApiReturn (contenant les rôles)
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -45,6 +47,7 @@ export const AddRole = async (roleName: string): Promise<Role | null> => {
 		return data; // Retourne l'objet Role créé
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -67,6 +70,7 @@ export const UpdateRole = async (roleId: number, roleName: string): Promise<Role
 		return data; // Retourne l'objet Role mis à jour
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -84,6 +88,7 @@ export const DeleteRole = async (roleId: number): Promise<boolean> => {
 		return data ? true : false; // Retourne true si la suppression a réussi, sinon false
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return false;
 	}
 };

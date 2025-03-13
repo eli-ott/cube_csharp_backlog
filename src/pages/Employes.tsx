@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Employee } from '../assets/models/Employes';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import trash from '../assets/icons/delete.svg';
 import refreshIcon from '../assets/icons/refresh.svg';
 import { useConfirm } from '../components/common/ConfirmProvider';
@@ -168,17 +168,17 @@ const Employes = () => {
 					<tr>
 						<td colSpan={9} className="px-6 py-4 border-t bg-gray-100">
 							<div className="flex justify-center gap-4">
-								{page !== 1 ? (
+								{maxPage && page !== 1 ? (
 									<button
 										onClick={() => changePage(-1)}
 										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">
 										Precedent
 									</button>
 								) : null}
-								{page !== 1 ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{1}</span> : null}
+								{maxPage && page !== 1 ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{1}</span> : null}
 								<span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{page}</span>
-								{page !== maxPage ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{maxPage}</span> : null}
-								{page !== maxPage ? (
+								{maxPage && page !== maxPage ? <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">{maxPage}</span> : null}
+								{maxPage && page !== maxPage ? (
 									<button
 										onClick={() => changePage(1)}
 										className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-all">

@@ -46,7 +46,7 @@ const CustomerSearchBar: React.FC<{ onSearch: (searchParams: any) => void }> = (
 				className="p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-600"
 			/>
 			<input
-				type="text"
+				type="mail"
 				placeholder="Mail"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}

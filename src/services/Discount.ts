@@ -1,4 +1,5 @@
 import { NewDiscount } from '../assets/models/Discount';
+import { notify } from '../utils/notify';
 import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -20,10 +21,10 @@ export const CreateDiscount = async (discount: NewDiscount) => {
 			},
 			body: JSON.stringify(discount),
 		});
-
-		const data = await response.json();
+		if (!response.ok) throw new Error('Une erreur est survenue');
 	} catch (e) {
 		console.error(e);
+		notify('Une erreur est survenue', 'error');
 	}
 };
 
@@ -35,7 +36,9 @@ export const DeleteDiscount = async (idDiscount: number) => {
 				...headers,
 			},
 		});
+		if (!response.ok) throw new Error('Une erreur est survenue');
 	} catch (e) {
 		console.error(e);
+		notify('Une erreur est survenue', 'error');
 	}
 };

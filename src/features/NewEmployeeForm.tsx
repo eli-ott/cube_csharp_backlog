@@ -6,7 +6,6 @@ import ModalButton from '../components/common/ModalButton';
 import ModalTextInput from '../components/common/ModalTextInput';
 import ModalSelect from '../components/common/ModalSelect';
 import { NewEmployeeFormProps } from '../assets/models/NewEmployeeForm';
-import { getRoles } from '@testing-library/dom';
 
 const NewEmployeeForm: React.FC<NewEmployeeFormProps> = ({ isOpen, handleSubmit, onClose, data, setData }) => {
 	const [roles, setRoles] = useState<RoleCreation[]>([]);

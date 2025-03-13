@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Role } from '../assets/models/Employes';
-import { useNavigate } from 'react-router-dom';
 import trash from '../assets/icons/delete.svg';
 import refreshIcon from '../assets/icons/refresh.svg';
 import { useConfirm } from '../components/common/ConfirmProvider';
-import { GetRoles, AddRole, UpdateRole, DeleteRole } from '../services/Roles';
+import { GetRoles, UpdateRole, DeleteRole } from '../services/Roles';
 import RoleDialog from '../components/ui/RoleDialog';
 import { notify } from '../utils/notify';
 
 const Roles = () => {
-	const navigate = useNavigate();
 	const confirm = useConfirm();
 
 	const [refresh, setRefresh] = useState<number>(0);
@@ -49,14 +47,6 @@ const Roles = () => {
 		setRefresh(refresh + 1);
 	};
 
-	const addRole = async () => {
-		const name = prompt('Nom du nouveau rôle :');
-		if (name) {
-			await AddRole(name);
-			setRefresh(refresh + 1);
-		}
-	};
-
 	// Mise à jour du rôle
 	const updateRole = async (roleId: number, newName: string) => {
 		if (newName && newName.trim() !== '') {
@@ -64,7 +54,7 @@ const Roles = () => {
 			setRefresh(refresh + 1);
 			notify('Mis à jour !', 'success'); // Rafraîchir la liste après la mise à jour
 		} else {
-			alert('Le nom ne peut pas être vide');
+			notify('Le nom ne peut pas être vide', 'info');
 		}
 	};
 

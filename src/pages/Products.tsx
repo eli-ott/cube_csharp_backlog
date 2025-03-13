@@ -56,19 +56,19 @@ const Products = () => {
 	const deleteProduct = async (event: React.MouseEvent, productId: number) => {
 		event.stopPropagation();
 
-		let confirmRes = await confirm(`Êtes vous sur de vouloir supprimer le produiut ? Cette action est irreversible.`);
+		let confirmRes = await confirm(`Êtes vous sur de vouloir supprimer le produit ? Cette action est irreversible.`);
 		if (!confirmRes) return;
 
 		await DeleteProduct(productId);
 		setRefresh(refresh + 1);
 	};
 
-	const onSearch = (serachParams: any) => {
-		setSearchParams(serachParams);
+	const onSearch = (searchParams: any) => {
+		setSearchParams(searchParams);
 	};
 
 	if (loading) return <p>Loading...</p>;
-	if (products.length === 0) return <p>No products found.</p>;
+	if (products.length === 0) return <p>Aucun produits trouvés.</p>;
 
 	return (
 		<div className="overflow-x-auto p-4 flex flex-col gap-4">

@@ -4,6 +4,7 @@ import { CreateSupplier } from '../../services/Fournisseurs';
 import { SupplierDialogProps } from '../../assets/models/Fournisseurs';
 import NewSupplierForm from '../../features/NewSupplierForm';
 import { toast } from 'react-toastify';
+import { notify } from '../../utils/notify';
 
 const SupplierDialog: React.FC<SupplierDialogProps> = ({ isOpen, onClose, onSupplierCreated }) => {
 	const [formData, setFormData] = useState({
@@ -32,13 +33,30 @@ const SupplierDialog: React.FC<SupplierDialogProps> = ({ isOpen, onClose, onSupp
 		e.preventDefault();
 
 		if (Object.values(formData).some((value) => !value)) {
-            toast.warning('Veuillez remplir tous les champs.');
+			notify('Veuillez remplir tous les champs.', 'warning');
 			return;
 		}
-        
-		try {
-			const response = await CreateSupplier(formData);
 
+		try {
+			const phoneReg = /[0-9]{10}/g;
+			const zipCodeReg = /[0-9]{5}/g;
+			const mailReg =
+				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
+
+			if (!phoneReg.test(formData.phone)) {
+				notify("Le numéro de téléphone n'est pas valide", 'warning');
+				return;
+			}
+			if (!mailReg.test(formData.email)) {
+				notify("L'email n'est pas valide", 'warning');
+				return;
+			}
+			if (!zipCodeReg.test(formData.address.zipCode)) {
+				notify("Le code postal n'est pas valide", 'warning');
+				return;
+			}
+
+			const response = await CreateSupplier(formData);
 			if (!response.ok) throw new Error("Erreur lors de la création de l'employé");
 
 			setFormData({
@@ -60,8 +78,7 @@ const SupplierDialog: React.FC<SupplierDialogProps> = ({ isOpen, onClose, onSupp
 			onSupplierCreated();
 			onClose();
 		} catch (error) {
-			console.error("Erreur lors de la création de l'employé:", error);
-			toast.error("Une erreur s'est produite.");
+			notify("Une erreur s'est produite.", 'error');
 		}
 	};
 

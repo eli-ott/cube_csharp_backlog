@@ -18,6 +18,8 @@ import { useAuth } from '../hooks/AuthContext';
 import DefaultLayout from '../components/pages_layout/DefaultLayout';
 import Family from '../pages/Family';
 import Roles from '../pages/Roles';
+import ForgotPassword from '../pages/ForgotPassword';
+import ConfirmationResetPassword from '../features/ConfirmationResetPassword';
 
 const Router = () => {
 	const { isLoggedIn } = useAuth();
@@ -160,6 +162,8 @@ const Router = () => {
 					<>
 						<Route path="/" element={<Login />} />
 						<Route path="/login" element={<Login />} />
+						<Route path="/forgot-password" element={<ForgotPassword />} />
+						<Route path="/forgot-password/confirmation/:guid" element={<ConfirmationResetPassword />} />
 					</>
 				)}
 			</Routes>

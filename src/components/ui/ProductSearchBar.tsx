@@ -34,7 +34,7 @@ const ProductSearchBar: React.FC<{ onSearch: (searchParams: any) => void }> = ({
 				<label htmlFor="isBio">Produits bio</label>
 			</div>
 			<button onClick={handleSearch} className="bg-gray-600 text-white p-2 rounded-lg cursor-pointer">
-				Search
+				Rechercher
 			</button>
 		</div>
 	);

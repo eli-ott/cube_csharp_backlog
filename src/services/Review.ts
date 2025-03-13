@@ -1,3 +1,4 @@
+import { notify } from '../utils/notify';
 import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -19,10 +20,10 @@ export const DeleteReview = async (userId: number, productId: number) => {
 			},
 			body: JSON.stringify({ userId, productId }),
 		});
-
-		const data = await response.json();
+		if (!response.ok) throw new Error("Une erreur est survenue lors de la suppression d'un avis");
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };

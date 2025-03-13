@@ -70,31 +70,31 @@ const ProductDetail = () => {
 		productData.append('supplierId', editableProduct!.supplier.supplierId.toString());
 		productData.append('familyId', editableProduct!.family.familyId.toString());
 
-		const data = await UpdateProduct(productData);
+		await UpdateProduct(productData);
 		setRefresh(refresh + 1);
 		setIsEditing(false);
 	};
 
 	const handleDeleteImage = async (imageId: string) => {
-		const res = await DeleteImage(imageId);
+		await DeleteImage(imageId);
 
 		setRefresh(refresh + 1);
 	};
 
 	const deleteDiscount = async () => {
-		const response = await DeleteDiscount(product?.discount.discountId);
+		await DeleteDiscount(product?.discount.discountId);
 
 		setRefresh(refresh + 1);
 	};
 
 	const deleteReview = async (userId: number) => {
-		const response = await DeleteReview(userId, product?.productId!);
+		await DeleteReview(userId, product?.productId!);
 
 		setRefresh(refresh + 1);
 	};
 
 	if (loading) return <p>Loading...</p>;
-	if (!product) return <p>Product not found</p>;
+	if (!product) return <p>Produit introuvable</p>;
 
 	return (
 		<div className="p-6 bg-white shadow-lg rounded-lg max-w-4xl mx-auto">
@@ -214,6 +214,21 @@ const ProductDetail = () => {
 							/>
 						) : (
 							<p className="text-lg font-semibold">{product.unitPrice ? `${product.unitPrice}€` : 'Aucun prix unitaire'}</p>
+						)}
+					</div>
+
+					<div className="bg-gray-100 p-4 rounded-md shadow">
+						<p className="text-sm font-medium text-gray-500">Prix unitaire</p>
+						{isEditing ? (
+							<input
+								type="number"
+								name="boxPrice"
+								className="text-lg font-semibold w-full bg-white"
+								value={editableProduct!.boxPrice || ''}
+								onChange={(e) => handleChange(e)}
+							/>
+						) : (
+							<p className="text-lg font-semibold">{product.boxPrice ? `${product.boxPrice}€` : 'Aucun prix unitaire'}</p>
 						)}
 					</div>
 

@@ -1,5 +1,6 @@
 import { ApiReturn } from '../assets/models/Api';
 import { CommandeClient } from '../assets/models/CommandeClient';
+import { notify } from '../utils/notify';
 import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -23,6 +24,7 @@ export const GetCommandesFournisseur = async (): Promise<ApiReturn | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -39,6 +41,7 @@ export const GetCommandeFournisseurById = async (id: number): Promise<CommandeCl
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -56,6 +59,7 @@ export const UpdateCommandeFournisseur = async (commande: CommandeClient): Promi
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -70,5 +74,6 @@ export const DeleteCommandeFournisseur = async (id: number) => {
 		if (!deleteCommandeClientRes.ok) throw new Error('Une erreur est survenue lors de la suppression de la commande');
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 	}
 };

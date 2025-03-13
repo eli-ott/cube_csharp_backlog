@@ -1,6 +1,7 @@
 import { Customer } from '../assets/models/Customer';
 import { ApiReturn } from '../assets/models/Api';
 import { getTokenFromCookie } from './authentification';
+import { notify } from '../utils/notify';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -21,6 +22,7 @@ export const DeleteCustomer = async (customerId: number) => {
 		if (!deleteCustomerRes.ok) throw new Error('Une erreur est survenue');
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 	}
 };
 
@@ -44,6 +46,7 @@ export const GetCustomers = async (page: number, searchParams: any): Promise<Api
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -60,6 +63,7 @@ export const GetCustomerById = async (id: number): Promise<Customer | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
