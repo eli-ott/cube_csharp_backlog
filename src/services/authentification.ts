@@ -4,7 +4,7 @@ import {
   IRegister,
   ILogin,
 } from "../assets/models/authentificationModel";
-import { API_KEY, BASE_URL } from "../utils/env";
+import { API_KEY, API_URL } from "../utils/env";
 
 
 export const register = async ({
@@ -39,7 +39,7 @@ export const register = async ({
       "x-api-key": API_KEY,
     };
 
-    const response = await fetch(`${BASE_URL}/customers/register`, {
+    const response = await fetch(`${API_URL}/customers/register`, {
       method: "POST",
       headers: headers,
       body: JSON.stringify(registerData),
@@ -64,7 +64,7 @@ export const login = async ({ email, password }: ILogin): Promise<boolean> => {
       ,password
     )
 
-    const response = await fetch(`${BASE_URL}/employees/login`, {
+    const response = await fetch(`${API_URL}/employees/login`, {
       method: "POST",
       headers: headers,
       body: JSON.stringify({ email, password }),
@@ -100,7 +100,7 @@ export const confirmAccount = async ({
       "x-api-key": API_KEY,
     };
     const response = await fetch(
-      `${BASE_URL}/customers/confirm-registration/${email}/${guid}`,
+      `${API_URL}/customers/confirm-registration/${email}/${guid}`,
       {
         method: "GET",
         headers: headers,

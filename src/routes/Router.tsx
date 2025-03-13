@@ -9,6 +9,7 @@ import Register from '../pages/Register';
 import RegisterConfirmation from '../pages/RegisterConfirmation';
 import { useAuth } from '../hooks/AuthContext';
 import DefaultLayout from '../components/pages_layout/DefaultLayout';
+import Family from '../pages/Family';
 
 
 
@@ -26,6 +27,8 @@ const Router = () => {
                 <Route path='/employes' element={<DefaultLayout><Employes/></DefaultLayout>}/>
                 <Route path="/employes/:id" element={<DefaultLayout><EmployeeDetails/></DefaultLayout>} />
                 <Route path="/fournisseurs" element={<DefaultLayout><Fournisseurs/></DefaultLayout>} /> 
+                <Route path="/family" element={<DefaultLayout><Family/></DefaultLayout>} /> 
+
                 </>
                 :                 
                 <Route path='/login' element={<Login/>}/>}

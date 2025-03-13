@@ -1,13 +1,16 @@
+import { isCookie } from 'react-router-dom';
 import { ApiReturn } from '../assets/models/Api';
 import { Employee } from '../assets/models/Employes';
 import { NewEmployeeFormData } from '../assets/models/NewEmployeeForm';
+import { getTokenFromCookie } from './authentification';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
 
+const token = getTokenFromCookie();
 const headers: HeadersInit = {
 	'x-api-key': apiKey as string,
-	Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
+	Authorization: `Bearer ${token}`,
 };
 
 export const DeleteEmploye = async (employeeId: number) => {
@@ -29,6 +32,7 @@ export const GetEmployes = async (page: number): Promise<ApiReturn | null> => {
 			method: 'GET',
 			headers,
 		});
+		console.log(apiUrl);
 		if (!employesRes.ok) throw new Error('Une erreur est survenu');
 
 		const data = await employesRes.json();
