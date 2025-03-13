@@ -9,9 +9,17 @@ const headers: HeadersInit = {
 	Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
 };
 
-export const GetProducts = async (page: number): Promise<ApiReturn | null> => {
+export const GetProducts = async (page: number, searchParams: any): Promise<ApiReturn | null> => {
 	try {
-		const response = await fetch(apiUrl + `/products/?page=${page}`, {
+		let searchString = '';
+
+		if (searchParams) {
+			Object.keys(searchParams).forEach((param) => {
+				searchString += `&${param}=${searchParams[param]}`;
+			});
+		}
+
+		const response = await fetch(apiUrl + `/products/?page=${page}${searchString}`, {
 			method: 'GET',
 			headers,
 		});
