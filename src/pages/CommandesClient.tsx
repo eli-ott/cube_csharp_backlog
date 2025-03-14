@@ -98,7 +98,7 @@ const CommandesClient = () => {
 
 				<tfoot>
 					<tr>
-						<td colSpan={9} className="px-6 py-4 border-t bg-gray-100">
+						<td colSpan={5} className="px-6 py-4 border-t bg-gray-100">
 							<div className="flex justify-center gap-4">
 								{maxPage && page !== 1 ? (
 									<button

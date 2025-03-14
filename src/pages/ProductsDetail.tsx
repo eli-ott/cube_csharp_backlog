@@ -359,11 +359,11 @@ const ProductDetail = () => {
 			{/* Action Buttons */}
 			<div className="flex justify-between mt-6">
 				<button onClick={() => setIsEditing(!isEditing)} className="px-4 py-2 bg-blue-600 text-white rounded-md">
-					{isEditing ? 'Cancel' : 'Edit'}
+					{isEditing ? 'Annuler' : 'Modifier'}
 				</button>
 				{isEditing && (
 					<button onClick={handleSave} className="px-4 py-2 bg-green-600 text-white rounded-md">
-						Save
+						Valider
 					</button>
 				)}
 			</div>

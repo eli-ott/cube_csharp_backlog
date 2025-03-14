@@ -139,7 +139,6 @@ export const sendResetPasswordMail = async (email: string): Promise<boolean> => 
 			headers,
 			body: JSON.stringify({ email: email }),
 		});
-		console.log(response, await response.json());
 		if (!response.ok) throw new Error('Erreur lors de la demande.');
 
 		return true;

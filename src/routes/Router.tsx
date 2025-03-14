@@ -21,6 +21,14 @@ import Roles from '../pages/Roles';
 import ForgotPassword from '../pages/ForgotPassword';
 import ConfirmationResetPassword from '../features/ConfirmationResetPassword';
 
+const Error = () => {
+	return (
+		<div className="flex h-full w-full">
+			<h1 className="text-large">404</h1>
+		</div>
+	);
+};
+
 const Router = () => {
 	const { isLoggedIn } = useAuth();
 
@@ -166,6 +174,7 @@ const Router = () => {
 						<Route path="/forgot-password/confirmation/:guid" element={<ConfirmationResetPassword />} />
 					</>
 				)}
+				<Route path="*" element={<Error />} />
 			</Routes>
 		</BrowserRouter>
 	);
