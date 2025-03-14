@@ -93,7 +93,7 @@ const ProductDetail = () => {
 		setRefresh(refresh + 1);
 	};
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <p>Chargement...</p>;
 	if (!product) return <p>Produit introuvable</p>;
 
 	return (

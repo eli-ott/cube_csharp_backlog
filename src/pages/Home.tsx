@@ -7,8 +7,8 @@ const Home = () => {
 			<HomeLink to="/employes" content="Employés"></HomeLink>
 			<HomeLink to="/fournisseurs" content="Fournisseurs"></HomeLink>
 			<HomeLink to="/customers" content="Clients"></HomeLink>
-			<HomeLink to="/family" content="Family"></HomeLink>
-			<HomeLink to="/roles" content="Roles"></HomeLink>
+			<HomeLink to="/family" content="Famille"></HomeLink>
+			<HomeLink to="/roles" content="Rôles"></HomeLink>
 			<HomeLink to="/produits" content="Produits"></HomeLink>
 		</div>
 	);

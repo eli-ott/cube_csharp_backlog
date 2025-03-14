@@ -60,7 +60,7 @@ const CommandesFournisseurDetail = () => {
 	};
 
 	if (loading) return <p>Chargement...</p>;
-	if (!order) return <p>Order not found</p>;
+	if (!order) return <p>Commande introuvable</p>;
 
 	return (
 		<div className="p-6 bg-white shadow-lg rounded-lg max-w-4xl mx-auto">

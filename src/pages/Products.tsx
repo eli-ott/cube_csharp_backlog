@@ -67,7 +67,7 @@ const Products = () => {
 		setSearchParams(searchParams);
 	};
 
-	if (loading) return <p>Loading...</p>;
+	if (loading) return <p>Chargement...</p>;
 	if (products.length === 0) return <p>Aucun produits trouvés.</p>;
 
 	return (
