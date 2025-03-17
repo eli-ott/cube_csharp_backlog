@@ -686,14 +686,6 @@
     width: calc(var(--spacing) * 2);
     height: calc(var(--spacing) * 2);
   }
-  .size-2\/5 {
-    width: calc(2/5 * 100%);
-    height: calc(2/5 * 100%);
-  }
-  .size-2\/7 {
-    width: calc(2/7 * 100%);
-    height: calc(2/7 * 100%);
-  }
   .size-full {
     width: 100%;
     height: 100%;
@@ -737,9 +729,6 @@
   }
   .h-80 {
     height: calc(var(--spacing) * 80);
-  }
-  .h-\[85vh\] {
-    height: 85vh;
   }
   .h-\[90vh\] {
     height: 90vh;
@@ -818,9 +807,6 @@
   }
   .w-1500 {
     width: calc(var(--spacing) * 1500);
-  }
-  .w-\[90vw\] {
-    width: 90vw;
   }
   .w-\[100vw\] {
     width: 100vw;
@@ -1257,9 +1243,6 @@
   .text-\[\#333333\] {
     color: #333333;
   }
-  .text-\[\#f8f4e3\] {
-    color: #f8f4e3;
-  }
   .text-black {
     color: var(--color-black);
   }
@@ -1404,32 +1387,10 @@
       }
     }
   }
-  .hover\:border {
-    &:hover {
-      @media (hover: hover) {
-        border-style: var(--tw-border-style);
-        border-width: 1px;
-      }
-    }
-  }
-  .hover\:bg-blue-600 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-blue-600);
-      }
-    }
-  }
   .hover\:bg-gray-50 {
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-50);
-      }
-    }
-  }
-  .hover\:bg-gray-100 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-gray-100);
       }
     }
   }
@@ -1451,13 +1412,6 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-800);
-      }
-    }
-  }
-  .hover\:text-black {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-black);
       }
     }
   }

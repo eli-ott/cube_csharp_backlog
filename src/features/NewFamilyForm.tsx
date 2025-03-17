@@ -9,7 +9,7 @@ const NewFamilyForm: React.FC<NewFamilyFormProps> = ({ handleSubmit, onClose, da
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		setFamilyName(e.target.value);
-		setData(familyName);
+		setData(e.target.value);
 		setError('');
 	};
 
