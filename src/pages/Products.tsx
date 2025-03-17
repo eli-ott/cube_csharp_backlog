@@ -68,7 +68,6 @@ const Products = () => {
 	};
 
 	if (loading) return <p>Chargement...</p>;
-	if (products.length === 0) return <p>Aucun produits trouvés.</p>;
 
 	return (
 		<div className="overflow-x-auto p-4 flex flex-col gap-4">
