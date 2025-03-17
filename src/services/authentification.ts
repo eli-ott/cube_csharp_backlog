@@ -113,7 +113,7 @@ export const getCustomerInfoFromToken = (): any => {
 	if (token) {
 		const decodedToken = jwtDecode<any>(token);
 		return {
-			id: parseInt(decodedToken.CustomerID),
+			id: parseInt(decodedToken.EmployeeID),
 			firstName: decodedToken.FirstName,
 			email: decodedToken.Email,
 		};

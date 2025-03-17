@@ -25,7 +25,7 @@ const CommandesFournisseurDetail = () => {
 
 			setLoading(false);
 			setOrder(data!);
-			setEditableOrder({ deliveryDate: data!.deliveryDate as string, statusId: data!.status.statusId ?? 0 });
+			setEditableOrder({ deliveryDate: data?.deliveryDate as string, statusId: data?.status.statusId ?? 0 });
 			setStatuses(statuses!.items);
 		};
 		fetchOrderDetail();
@@ -108,21 +108,21 @@ const CommandesFournisseurDetail = () => {
 
 			{/* Customer Information */}
 			<div className="border rounded-lg p-4 mb-6">
-				<h2 className="text-xl font-semibold mb-4">Détail du client</h2>
+				<h2 className="text-xl font-semibold mb-4">Détail de l'employé</h2>
 				<div className="grid grid-cols-2 gap-4">
 					<div className="bg-gray-100 p-4 rounded-md shadow">
 						<p className="text-sm font-medium text-gray-500">Nom</p>
 						<p className="text-lg font-semibold">
-							{order.customer?.firstName} {order.customer?.lastName}
+							{order.employee?.firstName} {order.employee?.lastName}
 						</p>
 					</div>
 					<div className="bg-gray-100 p-4 rounded-md shadow">
 						<p className="text-sm font-medium text-gray-500">Email</p>
-						<p className="text-lg font-semibold">{order.customer?.email}</p>
+						<p className="text-lg font-semibold">{order.employee?.email}</p>
 					</div>
 					<div className="bg-gray-100 p-4 rounded-md shadow">
 						<p className="text-sm font-medium text-gray-500">Tel</p>
-						<p className="text-lg font-semibold">{order.customer?.phone}</p>
+						<p className="text-lg font-semibold">{order.employee?.phone}</p>
 					</div>
 				</div>
 			</div>

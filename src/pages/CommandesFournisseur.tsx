@@ -42,7 +42,7 @@ const CommandesFournisseur = () => {
      * @param {number} id The order id
      */
     const handleRowClick = (id: number) => {
-        navigate('/commandes-client/' + id);
+        navigate('/commandes-fournisseur/' + id);
     }
 
 	return (
@@ -59,10 +59,9 @@ const CommandesFournisseur = () => {
 				<thead>
 					<tr className="bg-gray-700 text-white">
 						<th className="text-center px-6 py-3 border-b">Id commande</th>
-						<th className="text-center px-6 py-3 border-b">Client</th>
+						<th className="text-center px-6 py-3 border-b">Employé</th>
 						<th className="text-center px-6 py-3 border-b">Date de livraison</th>
 						<th className="text-center px-6 py-3 border-b">Statut</th>
-						<th className="text-center px-6 py-3 border-b">Total</th>
 					</tr>
 				</thead>
 
@@ -81,13 +80,10 @@ const CommandesFournisseur = () => {
 									<td className="text-center px-6 py-3 border-b">{order.orderId}</td>
 									<td className="text-center px-6 py-3 border-b">
 										{/** @ts-ignore */}
-										{order.customer?.firstName} {order.customer?.lastName}
+										{order.employee?.firstName} {order.employee?.lastName}
 									</td>
 									<td className="text-center px-6 py-3 border-b">{new Date(order.deliveryDate).toLocaleDateString()}</td>
 									<td className="text-center px-6 py-3 border-b">{order.status?.name}</td>
-									<td className="text-center px-6 py-3 border-b">
-										${order.lines?.reduce((total, line) => total + line.unitPrice * line.quantity, 0).toFixed(2)}
-									</td>
 								</tr>
 							))
 					)}
@@ -95,7 +91,7 @@ const CommandesFournisseur = () => {
 
 				<tfoot>
 					<tr>
-						<td colSpan={9} className="px-6 py-4 border-t bg-gray-100">
+						<td colSpan={4} className="px-6 py-4 border-t bg-gray-100">
 							<div className="flex justify-center gap-4">
 								{maxPage && page !== 1 ? (
 									<button
