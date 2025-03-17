@@ -23,7 +23,7 @@ const NewSupplierForm: React.FC<NewSupplierProps> = ({ isOpen, handleSubmit, onC
 		}
         
 		setFormData(newData);
-		setData(formData);
+		setData(newData);
 	};
 
 	return (

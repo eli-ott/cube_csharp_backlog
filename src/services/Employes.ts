@@ -1,13 +1,17 @@
+import { isCookie } from 'react-router-dom';
 import { ApiReturn } from '../assets/models/Api';
 import { Employee } from '../assets/models/Employes';
 import { NewEmployeeFormData } from '../assets/models/NewEmployeeForm';
+import { getTokenFromCookie } from './authentification';
+import { notify } from '../utils/notify';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
 
+const token = getTokenFromCookie();
 const headers: HeadersInit = {
 	'x-api-key': apiKey as string,
-	Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
+	Authorization: `Bearer ${token}`,
 };
 
 export const DeleteEmploye = async (employeeId: number) => {
@@ -20,21 +24,32 @@ export const DeleteEmploye = async (employeeId: number) => {
 		if (!deleteEmployeRes.ok) throw new Error('Une erreur est survenue');
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 	}
 };
 
-export const GetEmployes = async (page: number): Promise<ApiReturn | null> => {
+export const GetEmployes = async (page: number, searchParams: any = null): Promise<ApiReturn | null> => {
 	try {
-		const employesRes = await fetch(apiUrl + `/employees?page=${page}`, {
+		let searchString = '';
+
+		if (searchParams) {
+			Object.keys(searchParams).forEach((param) => {
+				searchString += `&${param}=${searchParams[param]}`;
+			});
+		}
+
+		const employesRes = await fetch(apiUrl + `/employees?page=${page}${searchString}`, {
 			method: 'GET',
 			headers,
 		});
+
 		if (!employesRes.ok) throw new Error('Une erreur est survenu');
 
 		const data = await employesRes.json();
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -51,6 +66,7 @@ export const GetEmployeById = async (id: number): Promise<Employee | null> => {
 		return data;
 	} catch (e) {
 		console.error(e);
+		notify(e as string, 'error');
 		return null;
 	}
 };
@@ -73,6 +89,7 @@ export const SaveEmploye = async (employee: Employee, id: number): Promise<boole
 
 		return response.ok;
 	} catch (err) {
+		notify(err as string, 'error');
 		return false;
 	}
 };

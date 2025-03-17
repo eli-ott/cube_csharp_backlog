@@ -43,7 +43,7 @@ export interface Order {
 export interface Status {
 	statusId: number;
 	name: string;
-	deletionTime: string;
+	deletionTime?: string;
 }
 
 export interface OrderLine {
@@ -56,6 +56,7 @@ export interface OrderLine {
 }
 
 export const customerFields = {
+	customerId: 'Id client',
 	supplierId: 'Id',
 	lastName: 'Nom de famille',
 	firstName: 'Prénom',

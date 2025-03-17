@@ -6,11 +6,10 @@ import { NewRoleFormProps } from '../assets/models/NewRoleForm';
 const NewRoleForm: React.FC<NewRoleFormProps> = ({ handleSubmit, onClose, data, setData }) => {
 	const [roleName, setRoleName] = useState(data);
 	const [error, setError] = useState('');
-    
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		setRoleName(e.target.value);
-        setData(roleName);
+		setData(e.target.value);
 		setError('');
 	};
 

@@ -1,6 +1,9 @@
+import { Review } from "./Customer";
+
 export interface Product {
 	productId: number;
 	name: string;
+	description: string;
 	cuvee: string;
 	year: number;
 	producerName: string;
@@ -16,8 +19,10 @@ export interface Product {
 	family: Family;
 	supplier: any;
 	images: Image[];
-	reviews: any[];
+	reviews: Review[];
 	discount: any;
+	familyId?: number;
+	supplierId?: number;
 }
 
 export interface Family {
@@ -35,4 +40,28 @@ export interface Image {
 	imageUrl: string;
 	updateTime: string;
 	creationTime: string;
+}
+
+export interface ProductDialogProps {
+	isOpen: boolean,
+	onClose: () => void
+	onProductCreated: (newProduct: Product) => void
+}
+
+export interface ProductFormData {
+	name?: string;
+	description?: string;
+	cuvee?: string;
+	year?: number;
+	producer?: string;
+	isBio?: boolean;
+	unitPrice?: number;
+	boxPrice?: number;
+	quantity?: number;
+	autoRestock?: boolean;
+	autoRestockTreshold?: number;
+	familyId?: number;
+	supplierId?: number;
+	images?: any[];
+	producerName?: string;
 }

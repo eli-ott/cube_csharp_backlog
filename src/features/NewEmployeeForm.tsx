@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Role, RoleCreation } from '../assets/models/Employes';
-import { GetAllRoles } from '../services/Roles';
+import { GetRoles } from '../services/Roles';
 import { validatePassword } from '../utils/Password';
 import ModalButton from '../components/common/ModalButton';
 import ModalTextInput from '../components/common/ModalTextInput';
@@ -19,7 +19,7 @@ const NewEmployeeForm: React.FC<NewEmployeeFormProps> = ({ isOpen, handleSubmit,
 	}, [isOpen]);
 
 	const fetchRoles = async () => {
-		setRoles((await GetAllRoles()) as Role[]);
+		setRoles((await GetRoles())?.items as Role[]);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
