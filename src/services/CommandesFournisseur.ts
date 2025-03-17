@@ -54,7 +54,6 @@ export const CreateCommandeFournisseur = async (commande: CreateSupplierOrder): 
 			headers: { 'Content-Type': 'application/json', ...headers },
 			body: JSON.stringify(commande),
 		});
-		console.log(createRes, await createRes.json());
 		if (!createRes.ok) throw new Error("Une erreur est survenue lors de l'ajout de la commande");
 
 		const data = await createRes.json();

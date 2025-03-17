@@ -1,4 +1,5 @@
 import { Customer, Status } from './Customer';
+import { Employee } from './Employes';
 import { Product } from './Product';
 
 export interface CommandeClient {
@@ -8,6 +9,7 @@ export interface CommandeClient {
 	updateTime: string;
 	creationTime: string;
 	customer: Customer;
+	employee?: Employee;
 	status: Status;
 	lines: LineCommandeClient[];
 }

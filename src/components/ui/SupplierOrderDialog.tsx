@@ -16,6 +16,10 @@ const SupplierOrderDialog: React.FC<SupplierOrderDialogProps> = ({ isOpen, produ
 			notify('Le nom de la famille est requis.', 'error');
 			return;
 		}
+		if(quantity && parseInt(quantity) <= 0) {
+			notify('La quantité doit être supérieur à 0', 'error');
+			return;
+		}
 
 		try {
 			let date = new Date();
