@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F8F4E3;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.styled-bg {
+  background-image: url("../images/auth_pages/background.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-clip:border-box;
+
+}
+@media screen and (max-width: 768px) {
+  .styled-bg {
+  background-image: url("../images/auth_pages/background_mobile.svg");
+  }
+}
