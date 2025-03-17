@@ -112,8 +112,9 @@ export const getCustomerInfoFromToken = (): any => {
 	const token = getTokenFromCookie();
 	if (token) {
 		const decodedToken = jwtDecode<any>(token);
+		console.log(decodedToken);
 		return {
-			id: parseInt(decodedToken.CustomerID),
+			id: parseInt(decodedToken.EmployeeID),
 			firstName: decodedToken.FirstName,
 			email: decodedToken.Email,
 		};

@@ -7,6 +7,7 @@ import DiscountDialog from '../components/ui/DiscountDialog';
 import { DeleteDiscount } from '../services/Discount';
 import { toast } from 'react-toastify';
 import { DeleteReview } from '../services/Review';
+import SupplierOrderDialog from '../components/ui/SupplierOrderDialog';
 
 const ProductDetail = () => {
 	const { id } = useParams();
@@ -16,6 +17,7 @@ const ProductDetail = () => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editableProduct, setEditableProduct] = useState<Product | null>(null);
 	const [discountDialogOpen, setDiscountDialogOpen] = useState<boolean>(false);
+	const [supplierOrderDialogOpen, setSupplierOrderDialogOpen] = useState(false);
 	const [newImages, setNewImages] = useState<File[]>([]);
 	const [refresh, setRefresh] = useState<number>(0);
 
@@ -103,6 +105,12 @@ const ProductDetail = () => {
 				isOpen={discountDialogOpen}
 				onClose={() => setDiscountDialogOpen(false)}
 				onDiscountCreated={() => setRefresh(refresh + 1)}
+			/>
+			<SupplierOrderDialog
+				isOpen={supplierOrderDialogOpen}
+				product={product}
+				onOrderCreated={() => setRefresh(refresh + 1)}
+				onClose={() => setSupplierOrderDialogOpen(false)}
 			/>
 
 			<h1 className="text-3xl font-bold mb-6">Product Details</h1>
@@ -361,6 +369,11 @@ const ProductDetail = () => {
 				<button onClick={() => setIsEditing(!isEditing)} className="px-4 py-2 bg-blue-600 text-white rounded-md">
 					{isEditing ? 'Annuler' : 'Modifier'}
 				</button>
+				{!isEditing && (
+					<button onClick={() => setSupplierOrderDialogOpen(true)} className="px-4 py-2 bg-blue-600 text-white rounded-md">
+					Commander
+				</button>
+				)}
 				{isEditing && (
 					<button onClick={handleSave} className="px-4 py-2 bg-green-600 text-white rounded-md">
 						Valider

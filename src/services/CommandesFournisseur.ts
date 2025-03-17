@@ -1,5 +1,6 @@
 import { ApiReturn } from '../assets/models/Api';
 import { CommandeClient } from '../assets/models/CommandeClient';
+import { CreateSupplierOrder } from '../assets/models/SupplierOrder';
 import { notify } from '../utils/notify';
 import { getTokenFromCookie } from './authentification';
 
@@ -38,6 +39,25 @@ export const GetCommandeFournisseurById = async (id: number): Promise<CommandeCl
 		if (!commandeRes.ok) throw new Error('Une erreur est survenue lors de la récupération de la commande ' + id);
 
 		const data = await commandeRes.json();
+		return data;
+	} catch (e) {
+		console.error(e);
+		notify(e as string, 'error');
+		return null;
+	}
+};
+
+export const CreateCommandeFournisseur = async (commande: CreateSupplierOrder): Promise<CommandeClient | null> => {
+	try {
+		const createRes = await fetch(apiUrl + `/supplier-orders`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', ...headers },
+			body: JSON.stringify(commande),
+		});
+		console.log(createRes, await createRes.json());
+		if (!createRes.ok) throw new Error("Une erreur est survenue lors de l'ajout de la commande");
+
+		const data = await createRes.json();
 		return data;
 	} catch (e) {
 		console.error(e);
