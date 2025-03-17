@@ -19,7 +19,7 @@ const FamilyDialog: React.FC<FamilyDialogProps> = ({ isOpen, onClose, onFamilyCr
 		try {
 			await AddFamilies(familyName);
 
-			notify('Rôle créer avec succès', 'success');
+			notify('Famille créer avec succès', 'success');
 
 			setFamilyName('');
 			onFamilyCreated();
