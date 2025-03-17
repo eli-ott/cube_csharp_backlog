@@ -20,7 +20,6 @@ const CommandesFournisseurDetail = () => {
 
 	useEffect(() => {
 		const fetchOrderDetail = async () => {
-			console.log(id);
 			const data = await GetCommandeFournisseurById(parseInt(id!));
 			const statuses = await GetStatus();
 
