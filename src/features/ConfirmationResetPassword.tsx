@@ -36,7 +36,7 @@ const ConfirmationResetPassword: React.FC = () => {
 			const response = await validatePasswordReset(guid, password);
 			if (response) {
 				navigate('/login');
-				notify('Mot de passe reinitialisé avec succès, vous pouvez vous connecter.', 'success');
+				notify('Mot de passe réinitialisé avec succès, vous pouvez vous connecter.', 'success');
 			} else {
 				setPassword('');
 				setConfirmPassword('');

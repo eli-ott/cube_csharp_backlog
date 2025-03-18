@@ -47,7 +47,7 @@ export const passwordValidator = ({
     strength++;
   } else {
     message =
-      "Le mot de passe doit contenir au moins 3 symboles spéciaux (par ex. . + * ?).";
+      "Le mot de passe doit contenir au moins 4 symboles spéciaux (par ex. . + * ?).";
     return { ok: false, message, strength };
   }
 
