@@ -296,13 +296,13 @@ const ProductDetail = () => {
 							</div>
 						))
 					) : (
-						<p>No reviews yet.</p>
+						<p>Aucunes images.</p>
 					)}
 				</div>
 			</div>
 			{/* Discount Section */}
 			<div className="border rounded-lg p-4 mb-6">
-				<h2 className="text-xl font-semibold mb-4">Discount</h2>
+				<h2 className="text-xl font-semibold mb-4">Promotion</h2>
 				<div>
 					{product.discount ? (
 						<div className="flex flex-col gap-4">
@@ -318,8 +318,8 @@ const ProductDetail = () => {
 								<p className="text-lg font-semibold">{product.discount.name}</p>
 							</div>
 							<div className="bg-gray-100 p-4 rounded-md shadow">
-								<p className="text-sm font-medium text-gray-500">Nom</p>
-								<p className="text-lg font-semibold">{product.discount.value}</p>
+								<p className="text-sm font-medium text-gray-500">Valeur</p>
+								<p className="text-lg font-semibold">{product.discount.value}%</p>
 							</div>
 							<div className="bg-gray-100 p-4 rounded-md shadow">
 								<p className="text-sm font-medium text-gray-500">Date de début</p>
@@ -341,17 +341,17 @@ const ProductDetail = () => {
 			</div>
 			{/* Reviews Section */}
 			<div className="border rounded-lg p-4 mb-6">
-				<h2 className="text-xl font-semibold mb-4">Reviews</h2>
+				<h2 className="text-xl font-semibold mb-4">Avis</h2>
 				{product.reviews.length > 0 ? (
 					product.reviews.map((review, index) => (
 						<div key={index} className="bg-gray-100 p-4 rounded-md shadow mb-4">
-							<p className="text-sm font-medium text-gray-500">Reviewer</p>
+							<p className="text-sm font-medium text-gray-500">Client</p>
 							<p className="text-lg font-semibold">
 								{review.customerFirstName} {review.customerLastName}
 							</p>
-							<p className="text-sm font-medium text-gray-500 mt-2">Rating</p>
+							<p className="text-sm font-medium text-gray-500 mt-2">Note</p>
 							<p className="text-lg font-semibold">{review.rating}/5</p>
-							<p className="text-sm font-medium text-gray-500 mt-2">Comment</p>
+							<p className="text-sm font-medium text-gray-500 mt-2">Commentaire</p>
 							<p className="text-lg font-semibold">{review.comment}</p>
 							<div className="flex flex-row justify-end">
 								<button onClick={() => deleteReview(review.userId)} className="bg-red-600 text-white p-2 rounded-lg cursor-pointer">
@@ -361,7 +361,7 @@ const ProductDetail = () => {
 						</div>
 					))
 				) : (
-					<p>No reviews yet.</p>
+					<p>Aucuns avis.</p>
 				)}
 			</div>
 			{/* Action Buttons */}

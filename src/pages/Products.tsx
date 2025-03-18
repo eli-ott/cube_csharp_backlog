@@ -26,8 +26,8 @@ const Products = () => {
 		const fetchProducts = async () => {
 			const data = await GetProducts(page, searchParams);
 
-			setProducts(data!.items);
-			setMaxPage(data!.totalPages);
+			setProducts(data?.items ?? []);
+			setMaxPage(data?.totalPages ?? 1);
 			setLoading(false);
 		};
 

@@ -21,9 +21,9 @@ const Customer = () => {
 		const fetchEmployes = async () => {
 			let data = await GetCustomers(page, searchParams);
 
-			setPage(data!.currentPage);
-			setMaxPage(data!.totalPages);
-			setCustomer(data!.items);
+			setPage(data?.currentPage ?? 1);
+			setMaxPage(data?.totalPages ?? 1);
+			setCustomer(data?.items ?? []);
 		};
 		fetchEmployes();
 	}, [page, refresh, searchParams]);

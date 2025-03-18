@@ -63,7 +63,9 @@ const CustomerDetail = () => {
 							<div key={key} className="bg-gray-100 p-4 rounded-md shadow">
 								{/** @ts-ignore */}
 								<p className="text-sm font-medium text-gray-500">{customerFields[key]}</p>
-								<p className="text-lg font-semibold">{value}</p>
+								<p className="text-lg font-semibold">
+									{key.toLocaleLowerCase().includes('time') ? (value ? new Date(value).toLocaleDateString('fr-FR') : 'Aucune date') : value}
+								</p>
 							</div>
 						))}
 				</div>
@@ -86,7 +88,7 @@ const CustomerDetail = () => {
 						</div>
 					))
 				) : (
-					<p>No orders yet.</p>
+					<p>Aucunes commandes.</p>
 				)}
 			</div>
 
@@ -114,7 +116,7 @@ const CustomerDetail = () => {
 						</div>
 					))
 				) : (
-					<p>Aucun avis pour le moment.</p>
+					<p>Aucuns avis pour le moment.</p>
 				)}
 			</div>
 		</div>

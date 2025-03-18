@@ -23,9 +23,9 @@ const Fournisseurs = () => {
 		const fetchEmployes = async () => {
 			let data = await GetSuppliers(page, searchParams);
 
-			setPage(data!.currentPage);
-			setMaxPage(data!.totalPages);
-			setFournisseurs(data!.items);
+			setPage(data?.currentPage ?? 1);
+			setMaxPage(data?.totalPages ?? 1);
+			setFournisseurs(data?.items ?? []);
 		};
 		fetchEmployes();
 	}, [page, refresh, searchParams]);

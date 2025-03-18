@@ -33,7 +33,6 @@ const ConfirmationResetPassword: React.FC = () => {
 	const validateForm = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (guid) {
-			console.log(guid);
 			const response = await validatePasswordReset(guid, password);
 			if (response) {
 				navigate('/login');

@@ -31,9 +31,9 @@ const ProductDialog: React.FC<ProductDialogProps> = ({ isOpen, onClose, onProduc
 	useEffect(() => {
 		const getElements = async () => {
 			const allSuppliers = await GetAllSuppliers();
-			setSuppliers(allSuppliers!.items);
+			setSuppliers(allSuppliers?.items ?? []);
 			const allFamilies = await GetFamilies();
-			setFamilies(allFamilies!.items);
+			setFamilies(allFamilies?.items ?? []);
 		};
 		getElements();
 	}, []);

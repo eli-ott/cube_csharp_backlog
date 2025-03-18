@@ -11,6 +11,7 @@ const Header = () => {
 				<button
 					onClick={() => {
 						logOut();
+						navigate('/');
 						document.location.reload();
 					}}
 					className="h-10 w-52 bg-gray-100 text-black font-medium rounded-md shadow-md hover:bg-gray-800 hover:text-white transition-all cursor-pointer">

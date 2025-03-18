@@ -25,9 +25,9 @@ const Employes = () => {
 		const fetchEmployes = async () => {
 			let data = await GetEmployes(page, searchParams);
 
-			setPage(data!.currentPage);
-			setMaxPage(data!.totalPages);
-			setEmployes(data!.items);
+			setPage(data?.currentPage ?? 1);
+			setMaxPage(data?.totalPages ?? 1);
+			setEmployes(data?.items ?? []);
 		};
 		fetchEmployes();
 	}, [page, refresh, searchParams]);

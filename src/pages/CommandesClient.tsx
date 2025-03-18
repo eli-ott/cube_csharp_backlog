@@ -16,9 +16,9 @@ const CommandesClient = () => {
 		const fetchOrders = async () => {
 			let orders = await GetCommandesClient();
 
-			setPage(orders!.currentPage);
-			setMaxPage(orders!.totalPages);
-			setOrders(orders!.items);
+			setPage(orders?.currentPage ?? 1);
+			setMaxPage(orders?.totalPages ?? 1);
+			setOrders(orders?.items ?? []);
 		};
 		fetchOrders();
 	}, [page, refresh]);
@@ -89,7 +89,7 @@ const CommandesClient = () => {
 									<td className="text-center px-6 py-3 border-b">{new Date(order.deliveryDate).toLocaleDateString()}</td>
 									<td className="text-center px-6 py-3 border-b">{order.status?.name}</td>
 									<td className="text-center px-6 py-3 border-b">
-										${order.lines?.reduce((total, line) => total + line.unitPrice * line.quantity, 0).toFixed(2)}
+										{order.lines?.reduce((total, line) => total + line.unitPrice * line.quantity, 0).toFixed(2)}€
 									</td>
 								</tr>
 							))

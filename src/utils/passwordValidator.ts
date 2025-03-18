@@ -43,7 +43,7 @@ export const passwordValidator = ({
   }
 
   // Vérification des symboles (au moins 3 symboles spéciaux parmi ceux autorisés)
-  if (/[.+*?!:;,^@/$(){}|]{3,}/.test(password)) {
+  if (/[.+*?!:;,^@/$(){}|]{4,}/.test(password)) {
     strength++;
   } else {
     message =

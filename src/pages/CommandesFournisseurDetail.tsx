@@ -26,7 +26,7 @@ const CommandesFournisseurDetail = () => {
 			setLoading(false);
 			setOrder(data!);
 			setEditableOrder({ deliveryDate: data?.deliveryDate as string, statusId: data?.status.statusId ?? 0 });
-			setStatuses(statuses!.items);
+			setStatuses(statuses?.items ?? []);
 		};
 		fetchOrderDetail();
 	}, [id]);
@@ -140,10 +140,10 @@ const CommandesFournisseurDetail = () => {
 							<p className="text-lg font-semibold">{line.quantity}</p>
 
 							<p className="text-sm font-medium text-gray-500 mt-2">Prix unitaire</p>
-							<p className="text-lg font-semibold">${line.unitPrice.toFixed(2)}</p>
+							<p className="text-lg font-semibold">{line.unitPrice.toFixed(2)}€</p>
 
 							<p className="text-sm font-medium text-gray-500 mt-2">Total</p>
-							<p className="text-lg font-semibold">${(line.unitPrice * line.quantity).toFixed(2)}</p>
+							<p className="text-lg font-semibold">{(line.unitPrice * line.quantity).toFixed(2)}€</p>
 						</div>
 					))
 				) : (

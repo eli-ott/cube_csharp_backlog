@@ -16,9 +16,9 @@ const CommandesFournisseur = () => {
 		const fetchOrders = async () => {
 			let orders = await GetCommandesFournisseur();
 
-			setPage(orders!.currentPage);
-			setMaxPage(orders!.totalPages);
-			setOrders(orders!.items);
+			setPage(orders?.currentPage ?? 1);
+			setMaxPage(orders?.totalPages ?? 1);
+			setOrders(orders?.items ?? []);
 		};
         fetchOrders();
 	}, [page, refresh]);

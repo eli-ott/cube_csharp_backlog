@@ -32,6 +32,7 @@ const LoginForm = () => {
 			setIsLoggedIn(true);
 			notify('Vous nous aviez manqué !', 'success');
 			navigate('/');
+			document.location.reload();
 		} else {
 			notify('Adresse mail ou mot de passe incorrect.', 'error');
 		}

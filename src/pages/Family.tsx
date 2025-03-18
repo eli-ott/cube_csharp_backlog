@@ -19,8 +19,8 @@ const FamilyTable = () => {
 	useEffect(() => {
 		const fetchFamilies = async () => {
 			const data = await GetFamilies();
-			setFamilies(data!.items);
-			setMaxPage(data!.totalPages);
+			setFamilies(data?.items ?? []);
+			setMaxPage(data?.totalPages ?? 1);
 		};
 		fetchFamilies();
 	}, [refresh]);

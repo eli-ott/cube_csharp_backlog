@@ -43,7 +43,7 @@ const SupplierDetail = () => {
 		}
 
 		setSupplier(newData as Supplier);
-		setFormData(supplier);
+		setFormData(newData as Supplier);
 	};
 
 	const handleSave = async () => {
@@ -79,7 +79,13 @@ const SupplierDetail = () => {
 								{isEditing && modifiableFields.includes(key) ? (
 									<input type="text" name={key} value={value} onChange={handleInputChange} className="w-full p-2 border rounded-md" />
 								) : (
-									<p className="text-lg font-semibold">{value ?? 'Aucune valeur'}</p>
+									<p className="text-lg font-semibold">
+										{key.toLocaleLowerCase().includes('time')
+											? value
+												? new Date(value).toLocaleDateString('fr-FR')
+												: 'Aucune date'
+											: value ?? 'Aucune valeur'}
+									</p>
 								)}
 							</div>
 						);
@@ -99,7 +105,13 @@ const SupplierDetail = () => {
 								{isEditing && modifiableFields.includes(key) ? (
 									<input type="text" name={key} value={value} onChange={handleInputChange} className="w-full p-2 border rounded-md" />
 								) : (
-									<p className="text-lg font-semibold">{value ?? 'Aucune valeur'}</p>
+									<p className="text-lg font-semibold">
+										{key.toLocaleLowerCase().includes('time')
+											? value
+												? new Date(value).toLocaleDateString('fr-FR')
+												: 'Aucune date'
+											: value ?? 'Aucune valeur'}
+									</p>
 								)}
 							</div>
 						))}
@@ -115,7 +127,7 @@ const SupplierDetail = () => {
 							<div
 								key={product.productId}
 								className="border rounded-lg p-4 w-75 shadow-md cursor-pointer"
-								onClick={() => navigate(`/products/${product.productId}`)}>
+								onClick={() => navigate(`/produits/${product.productId}`)}>
 								<h3 className="font-bold text-lg">{product.name}</h3>
 								<div className="grid grid-cols-1 gap-2">
 									<div className="bg-gray-100 p-4 rounded-md shadow">
@@ -136,7 +148,7 @@ const SupplierDetail = () => {
 									</div>
 									<div className="bg-gray-100 p-4 rounded-md shadow">
 										<p className="text-sm font-medium text-gray-500">Restock automatique</p>
-										<p className="text-lg font-semibold">{product.autoRestock ? 'Yes' : 'No'}</p>
+										<p className="text-lg font-semibold">{product.autoRestock ? 'Oui' : 'Non'}</p>
 									</div>
 								</div>
 
@@ -150,7 +162,7 @@ const SupplierDetail = () => {
 						))}
 					</div>
 				) : (
-					<p>No products available</p>
+					<p>Aucuns produits</p>
 				)}
 			</div>
 

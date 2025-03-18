@@ -18,7 +18,7 @@ const RoleDialog: React.FC<RoleDialogProps> = ({ isOpen, onClose, onRoleCreated 
 
 		await AddRole(roleName);
 
-		notify('Rôle créer avec succès', 'success');
+		notify('Rôle créé avec succès', 'success');
 		setRoleName('');
 		onRoleCreated();
 		onClose();
